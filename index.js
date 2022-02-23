@@ -5,7 +5,7 @@ const pvcpu_unbeatable_button = document.querySelector("#pvcpu_unbeatable_button
 const start_button = document.querySelector("#start_button");
 const all_buttons = [pvp_button,pvcpu_normal_button,pvcpu_hard_button,pvcpu_unbeatable_button];
 const chosen_gamemode = [false,false,false,false];
-all_buttons.forEach(button => button.addEventListener('click',function(idx){
+all_buttons.forEach(button => button.addEventListener('click',function(){
     for (let i = 0; i < all_buttons.length; i++){
         if (all_buttons[i].style.backgroundColor == "green"){
             all_buttons[i].style.backgroundColor = "beige";
@@ -44,9 +44,9 @@ function reset_unchosen_gamemode_values(chosen_gamemode_idx){
             chosen_gamemode[i] = false;
     }    
 }
-// start_button.addEventListener('click',function(){
-//     if (chosen_gamemode.indexOf(true) == -1)
-//         alert("You must choose a gamemode!");
-//     else
-//         location.href = 'game.html';
-// });
+start_button.addEventListener('click',function(){
+    if (chosen_gamemode.indexOf(true) == -1)
+        alert("You must choose a gamemode!");
+    else
+        location.href = 'game.html';
+});
