@@ -3,3 +3,47 @@ body{
     padding:0;
     background-color: rgba(128, 128, 128, 0.514);
 }
+body,html{
+    height:100%;
+}
+h1{
+    font-size: 28px;
+    color: red;
+}
+.main_menu{
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    padding:12px;
+    gap:8px;
+    position:fixed;
+    top: 40%;
+    left: 0;
+    right:0;
+    width:20%;
+    flex-wrap:wrap;
+    margin: -100px auto 0 auto;
+}
+.main_menu > button{
+    background-color:beige;
+}
+#pvp_button:hover{
+    background-color:rgb(255, 115, 0);
+    color:black;
+}
+#pvcpu_normal_button:hover{
+    background-color:rgb(245, 245, 0);
+    color:black;
+}
+#pvcpu_hard_button:hover{
+    background-color:crimson;
+    color:white;
+}
+#pvcpu_unbeatable_button:hover{
+    background-color:red;
+    color:white;
+}
+#start_button:hover{
+    background-color:yellowgreen;
+    color:white;
+}
