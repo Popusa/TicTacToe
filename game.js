@@ -9,6 +9,7 @@ const player = (player_name,shape,wins = 0,loses = 0,draws = 0) => {
 const gameboard_controller = (() => {
     const draw = "Draw";
     const no_winner_yet = "NWY";
+    let active_gamemode = "";
     let board = [
     ['','',''],
     ['','',''],
@@ -75,5 +76,5 @@ const gameboard_controller = (() => {
     return{board,get_board,check_legal_move,update_board,check_win_condition,reset_board};
 })();
 const game_display = () => {
-    //TBD when html divs are made
+    //TBD
 };

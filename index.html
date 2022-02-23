@@ -10,10 +10,10 @@
 <body>
     <div class = "main_menu">
         <h1>Tic Tac Toe</h1>
-        <button id = "pvp_button" onClick="get_clicked_button_id(this.id)">PLAYER VS PLAYER</button>
-        <button id = "pvcpu_normal_button" onClick="get_clicked_button_id(this.id)">PLAYER VS COMPUTER (NORMAL)</button>
-        <button id = "pvcpu_hard_button" onClick="get_clicked_button_id(this.id)">PLAYER VS COMPUTER (HARD)</button>
-        <button id = "pvcpu_unbeatable_button" onClick="get_clicked_button_id(this.id)">PLAYER VS COMPUTER (UNBEATABLE)</button>
+        <button id = "pvp_button" onClick="set_chosen_gamemode(0)">PLAYER VS PLAYER</button>
+        <button id = "pvcpu_normal_button" onClick="set_chosen_gamemode(1)">PLAYER VS COMPUTER (NORMAL)</button>
+        <button id = "pvcpu_hard_button" onClick="set_chosen_gamemode(2)">PLAYER VS COMPUTER (HARD)</button>
+        <button id = "pvcpu_unbeatable_button" onClick="set_chosen_gamemode(3)">PLAYER VS COMPUTER (UNBEATABLE)</button>
         <button id = "start_button">START</button>
     </div>
 </body>

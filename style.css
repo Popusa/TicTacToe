@@ -47,3 +47,9 @@ h1{
     background-color:yellowgreen;
     color:white;
 }
+a:-webkit-any-link {
+    color:black;
+    cursor: pointer;
+    text-decoration: none;
+    width:100%;
+}
