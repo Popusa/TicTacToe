@@ -75,13 +75,18 @@ const gameboard_controller = (() => {
     }
     return{board,get_board,check_legal_move,update_board,check_win_condition,reset_board};
 })();
-const game_display = () => {
-    //TBD
-};
+const game_display = (() => {
+    const positions = document.querySelectorAll("#btn");
+    const get_positions = () => positions;
+    return{positions,get_positions};
+})();
 try{
     gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
 }
 catch(error){
         console.log(error);
+        gameboard_controller.active_gamemode = 1;
 }
-console.log(gameboard_controller.active_gamemode);
+// console.log(gameboard_controller.active_gamemode);
+// console.log(game_display.get_positions());
+// game_display.positions[0].innerText = "test";
