@@ -9,7 +9,7 @@ const player = (player_name,shape,wins = 0,loses = 0,draws = 0) => {
 const gameboard_controller = (() => {
     const draw = "Draw";
     const no_winner_yet = "NWY";
-    let active_gamemode = chosen_gamemode;
+    let active_gamemode = chosen_gamemode ?? 1;
     let board = [
     ['','',''],
     ['','',''],
