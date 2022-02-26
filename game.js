@@ -87,6 +87,6 @@ catch(error){
         console.log(error);
         gameboard_controller.active_gamemode = 1;
 }
-// console.log(gameboard_controller.active_gamemode);
-// console.log(game_display.get_positions());
+console.log(gameboard_controller.active_gamemode);
+console.log(game_display.get_positions());
 // game_display.positions[0].innerText = "test";
