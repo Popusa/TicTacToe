@@ -47,6 +47,8 @@ function reset_unchosen_gamemode_values(chosen_gamemode_idx){
 start_button.addEventListener('click',function(){
     if (chosen_gamemode.indexOf(true) == -1)
         alert("You must choose a gamemode!");
-    else
+    else{
         location.href = 'game.html';
+        localStorage.setItem('chosen_gamemode', JSON.stringify(chosen_gamemode.indexOf(true)));
+    }
 });

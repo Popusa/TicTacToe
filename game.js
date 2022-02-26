@@ -9,7 +9,7 @@ const player = (player_name,shape,wins = 0,loses = 0,draws = 0) => {
 const gameboard_controller = (() => {
     const draw = "Draw";
     const no_winner_yet = "NWY";
-    let active_gamemode = chosen_gamemode ?? 1;
+    let active_gamemode;
     let board = [
     ['','',''],
     ['','',''],
@@ -78,3 +78,10 @@ const gameboard_controller = (() => {
 const game_display = () => {
     //TBD
 };
+try{
+    gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
+}
+catch(error){
+        console.log(error);
+}
+console.log(gameboard_controller.active_gamemode);
