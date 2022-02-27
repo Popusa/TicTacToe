@@ -76,9 +76,17 @@ const gameboard_controller = (() => {
     return{board,get_board,check_legal_move,update_board,check_win_condition,reset_board};
 })();
 const game_display = (() => {
-    const positions = document.querySelectorAll("#btn");
+    const positions = document.querySelector(".positions");
     const get_positions = () => positions;
-    return{positions,get_positions};
+    const generate_display = (num_of_btns) => {
+     for (let i = 0; i < num_of_btns; i++){
+             const btn = document.createElement("button");
+             btn.classList.add("btn");
+             btn.innerText = i + 1;
+             positions.appendChild(btn);
+        } 
+    }
+    return{positions,get_positions,generate_display};
 })();
 try{
     gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
@@ -87,6 +95,8 @@ catch(error){
         console.log(error);
         gameboard_controller.active_gamemode = 1;
 }
-console.log(gameboard_controller.active_gamemode);
-console.log(game_display.get_positions());
+// console.log(gameboard_controller.active_gamemode);
+// game_display.positions[0].innerText = "3";
 // game_display.positions[0].innerText = "test";
+game_display.generate_display(9);
+console.log(game_display.get_positions());
