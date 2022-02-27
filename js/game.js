@@ -15,6 +15,7 @@ const gameboard_controller = (() => {
     ['','',''],
     ['','',''],
     ];
+    let turn = 1;
     const get_board = () => board;
     const check_legal_move = (row,col,shape1,shape2) => {
         if (board[row][col] == shape1 || board[row][col] == shape2)
@@ -73,9 +74,14 @@ const gameboard_controller = (() => {
             }
         }
     }
-    return{board,get_board,check_legal_move,update_board,check_win_condition,reset_board};
+    //turn is checked after each move
+    const check_turn = (shape_one,shape_two) => {
+        //TBD
+    }
+    return{board,turn,get_board,check_legal_move,update_board,check_win_condition,reset_board,check_turn};
 })();
 const game_display = (() => {
+    const all_tiles = [];
     const positions = document.querySelector(".positions");
     const get_positions = () => positions;
     const generate_display = (num_of_btns) => {
@@ -84,9 +90,17 @@ const game_display = (() => {
              btn.classList.add("btn");
              btn.innerText = i + 1;
              positions.appendChild(btn);
-        } 
+             all_tiles.push(btn);
+        }
     }
-    return{positions,get_positions,generate_display};
+    const handle_events = () => {
+        all_tiles.forEach(tile =>
+            tile.addEventListener('click',function(){
+                //TBD
+                alert("hello world");
+            }));
+    }
+    return{all_tiles,positions,get_positions,generate_display,handle_events};
 })();
 try{
     gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
@@ -98,5 +112,9 @@ catch(error){
 // console.log(gameboard_controller.active_gamemode);
 // game_display.positions[0].innerText = "3";
 // game_display.positions[0].innerText = "test";
+// console.log(game_display.get_positions());
+// console.log(game_display.all_tiles);
 game_display.generate_display(9);
-console.log(game_display.get_positions());
+game_display.handle_events();
+const player_one =  player("Test","x");
+const player_two =  player("Test2","o");
