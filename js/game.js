@@ -20,6 +20,7 @@ const gameboard_controller = (() => {
     const get_board = () => board;
     const update_board = (row,col,shape) => gameboard_controller.board[row][col] = shape;
     const check_win_condition = (shape1,shape2) => {
+        //ROWS
         for (let i = 0; i < 3; i++){
             if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != '')
                 if (board[i][0] == shape1)
@@ -27,6 +28,7 @@ const gameboard_controller = (() => {
                 else
                     return shape2;
                  }
+        //COLUMNS
         for (let i = 0; i < 3; i++){
             if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != '')
                 if (board[0][i] == shape1)
@@ -34,19 +36,21 @@ const gameboard_controller = (() => {
                 else
                     return shape2;
                  }
-                if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ''){
+        //DIAGONALS
+        if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ''){
                     if (board[0][0] == shape1)
                         return shape1;
                     else
                         return shape2;
                 }
-                else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]  && board[0][2] != ''){
+        else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]  && board[0][2] != ''){
                     if (board[0][2] == shape1)
                         return shape1;
                     else
                         return shape2;
                 }
-                else{
+                //DRAW CHECKING
+        else{
                     let temp_counter = 0;
                     for (let i = 0; i < 3; i++){
                         for (let j = 0; j < 3; j++){
@@ -69,6 +73,102 @@ const gameboard_controller = (() => {
             }
         }
     }
+    const get_random_move = () => {
+        let row;
+        let col;
+        row = Math.floor(Math.random() * 3);
+        col = Math.floor(Math.random() * 3);
+        while (board[row][col] == player_one.get_shape() || board[row][col] == player_two.get_shape()){
+            row = Math.floor(Math.random() * 3);
+            col = Math.floor(Math.random() * 3);
+        }
+        return [row,col];
+    }
+    const generate_normal_cpu_move = () => {
+        let random_move = get_random_move();
+        return random_move;    
+    }
+    const generate_hard_cpu_move = () => {
+        let row,col;
+        //ROWS
+        for (let i = 0; i < 3; i++){
+            for (let j = 0; j < 3; j++){
+                if (board[0][i] == player_two.get_shape() && board[0][i + 1] == player_two.get_shape()){
+                    row = 0;
+                    col = i + 2;
+                    return [row,col];
+                }
+                else if (board[0][i] == player_two.get_shape() && board[0][i + 2] == player_two.get_shape()){
+                    row = 0;
+                    col = i + 1;
+                    return [row,col];
+                }
+                else if (board[0][i + 1] == player_two.get_shape() && board[0][i + 2] == player_two.get_shape()){
+                    row = 0;
+                    col = i;
+                    return [row,col];
+                }
+            }
+        }
+        //COLUMNS
+        for (let i = 0; i < 3; i++){
+            for (let j = 0; j < 3; j++){
+                if (board[i][0] == player_two.get_shape() && board[i + 1][0] == player_two.get_shape()){
+                    row = 0;
+                    col = i + 2;
+                    return [row,col];
+                }
+                else if (board[i][0] == player_two.get_shape() && board[i + 2][0] == player_two.get_shape()){
+                    row = 0;
+                    col = i + 1;
+                    return [row,col];
+                }
+                else if (board[i + 1][0] == player_two.get_shape() && board[i + 2][0] == player_two.get_shape()){
+                    row = i;
+                    col = 0;
+                    return [row,col];
+                }
+            }
+        }
+        //DIAGONALS
+        if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
+            row = 0;
+            col = 0;
+            return [row,col];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
+            row = 1;
+            col = 1;
+            return [row,col];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
+            row = 2;
+            col = 2;
+            return [row,col];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
+            row = 1;
+            col = 1;
+            return [row,col];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
+            row = 2;
+            col = 0;
+            return [row,col];
+        }
+        else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
+            row = 0;
+            col = 2;
+            return [row,col];
+        }
+        else{
+            let move = get_random_move();
+            return move;
+        }
+    }
+    const generate_unbeatable_cpu_move = () => {
+        //MINIMAX TBD
+    }
     //turn is checked after each move
     const check_turn = () => {
         if (player_one_turn == true){
@@ -82,7 +182,8 @@ const gameboard_controller = (() => {
             return player_two.get_shape();
         }
     }
-    return{draw,no_winner_yet,board,player_one_turn,player_two_turn,get_board,update_board,check_win_condition,reset_board,check_turn};
+    return{draw,no_winner_yet,board,player_one_turn,player_two_turn,get_board,update_board,check_win_condition,reset_board,
+        get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,generate_unbeatable_cpu_move,check_turn};
 })();
 const game_display = (() => {
     // 1 2 3 
