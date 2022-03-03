@@ -195,6 +195,7 @@ const game_display = (() => {
     // 10 11 12
     // 20 21 22 
     const all_tiles = [];
+    let header_para = "";
     const positions = document.querySelector(".positions");
     let tile_board_position;
     let game_decision = gameboard_controller.no_winner_yet;
@@ -225,6 +226,23 @@ const game_display = (() => {
              positions.appendChild(btn);
              all_tiles.push(btn);
         }
+        header_para = document.createElement('p');
+        header_para.classList.add("header_para");
+        switch (gameboard_controller.active_gamemode){
+            case 0:
+                header_para.innerText = "Player vs Player Mode";
+                break;
+            case 1:
+                header_para.innerText = "Normal CPU Mode";
+                break;
+            case 2:
+                header_para.innerText = "Hard CPU Mode";
+                break;
+            case 3:
+                header_para.innerText = "Unbeatable CPU mode";
+                break;           
+        }
+        document.body.appendChild(header_para);
     }
     const update_tile = (tile,shape) => {
         if (shape == player_one.get_shape()){
@@ -258,20 +276,17 @@ const game_display = (() => {
                 }
             }));
     }
-    return{all_tiles,positions,tile_board_position,game_decision,translate_positions,get_positions,generate_display,update_tile,handle_events};
+    return{all_tiles,header_para,positions,tile_board_position,game_decision,translate_positions,get_positions,generate_display,update_tile,handle_events};
 })();
-try{
-    gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
-}
-catch(error){
-        console.log(error);
-        gameboard_controller.active_gamemode = 1;
-}
 // console.log(gameboard_controller.active_gamemode);
 // game_display.positions[0].innerText = "3";
 // game_display.positions[0].innerText = "test";
 // console.log(game_display.get_positions());
 // console.log(game_display.all_tiles);
+if (localStorage.getItem("chosen_gamemode") != null)
+    gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
+else
+    gameboard_controller.active_gamemode = 0;
 game_display.generate_display(9);
 game_display.handle_events();
 const player_one =  player("Test",'x');

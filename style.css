@@ -5,6 +5,7 @@ body{
 }
 body,html{
     height:100%;
+    overflow:hidden;
 }
 h1{
     font-size: 28px;
@@ -58,7 +59,7 @@ a:-webkit-any-link {
     display:flex;
     position:fixed;
     top: 40%;
-    left: 40%;
+    left: 38%;
     right:0;
     max-width:100%;
     max-height:100%;
@@ -81,5 +82,12 @@ a:-webkit-any-link {
     border-color:black;
 }
 .positions > button:hover{
-    color:green;
+    background-color:green;
+}
+.header_para{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin-top: 128px;
+    font-size:32px;
 }
