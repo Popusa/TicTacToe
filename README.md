@@ -10,7 +10,7 @@ The game has four modes: 2-player, normal CPU, hard CPU, and unbeatable CPU.
 
 the CPU modes however, will be comprised of three difficulties:
 
-First: a normal difficulty where a moderately smart CPU will attempt to win while trying not to lose.
+First: a normal difficulty where a CPU will play random moves every turn.
 
 Second: a hard difficulty where a CPU will attempt to win at all costs.
 
