@@ -1,10 +1,17 @@
-const player = (player_name,shape,wins = 0,loses = 0,draws = 0) => {
+const player = (player_name,shape,wins = 0,loses = 0,draws = 0,cpu_current_play_position = []) => {
+    const set_name = (name) => player_name = name;
+    const set_shape = (player_shape) => shape = player_shape;
+    const set_wins = (player_wins) => wins = player_wins;
+    const set_loses = (player_loses) => loses = player_loses;
+    const set_draws = (player_draws) => draws = player_draws;
+    const set_cpu_current_play_position = (cpu_position) => cpu_current_play_position = cpu_position;
     const get_name = () => player_name;
     const get_shape = () => shape;
     const get_wins = () => wins;
     const get_loses = () => loses;
     const get_draws = () => draws;
-    return {get_name,get_shape,get_wins,get_loses,get_draws };
+    const get_cpu_current_play_position = () => cpu_current_play_position;
+    return {set_name,set_shape,set_wins,set_loses,set_draws,set_cpu_current_play_position,get_name,get_shape,get_wins,get_loses,get_draws,get_cpu_current_play_position };
   };
 const gameboard_controller = (() => {
     const draw = "Draw";
@@ -264,8 +271,29 @@ const game_display = (() => {
                 else{
                     tile_board_position = translate_positions(Number(tile.innerText));
                     let current_turn = gameboard_controller.check_turn();
-                    gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
-                    update_tile(tile,current_turn);
+                    // switch(gameboard_controller.active_gamemode){
+                    //     case 0:
+                    //         break;
+                    //     case 1:
+                    //         player_two.set_cpu_current_play_position(gameboard_controller.generate_normal_cpu_move());
+                    //         break;
+                    //     case 2:
+                    //         player_two.set_cpu_current_play_position(gameboard_controller.generate_hard_cpu_move());
+                    //         break;
+                    //     case 3:
+                    //         player_two.set_cpu_current_play_position(gameboard_controller.generate_unbeatable_cpu_move());
+                    //         break;
+                    // }
+                    if (gameboard_controller.active_gamemode == 0){
+                        gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
+                        update_tile(tile,current_turn);
+                    }
+                    // else{
+                    //     let temp_position_holder = player_two.get_cpu_current_play_position();
+                    //     gameboard_controller.update_board(temp_position_holder[0],temp_position_holder[1],current_turn);
+                    //     update_tile(tile,current_turn);
+                    //     current_turn = gameboard_controller.check_turn();
+                    // }
                     game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
                     if (game_decision == gameboard_controller.no_winner_yet){
                         return;
