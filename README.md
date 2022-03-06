@@ -1,6 +1,6 @@
 This is the TicTacToe project that I am making as part of the The Odin Project Curriculum.
 
-It is the second in the design patterns section that will teach me how to write organized and clean code.
+It is the second project in the design patterns section that will teach me how to write organized and clean code.
 
 Also, the main objective of the project is to learn how to use factories and the module pattern, which is going to be interesting!
 
