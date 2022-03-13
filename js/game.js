@@ -178,19 +178,25 @@ const gameboard_controller = (() => {
     }
     //turn is checked after each move
     const check_turn = () => {
-        if (player_one_turn == true){
-            player_one_turn = false;
-            player_two_turn = true;
+        if (player_one_turn){
             return player_one.get_shape();
         }
         else{
-            player_two_turn = false;
-            player_one_turn = true;
             return player_two.get_shape();
         }
     }
+    const change_turn = () => {
+        if (player_one_turn){
+            player_one_turn = false;
+            player_two_turn = true;
+        }
+        else{
+            player_one_turn = true;
+            player_two_turn = false;
+        }
+    }
     return{draw,no_winner_yet,board,player_one_turn,player_two_turn,get_board,update_board,check_win_condition,reset_board,
-        get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,generate_unbeatable_cpu_move,check_turn};
+        get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,generate_unbeatable_cpu_move,check_turn,change_turn};
 })();
 const game_display = (() => {
     // 1 2 3 
@@ -206,7 +212,7 @@ const game_display = (() => {
     const positions = document.querySelector(".positions");
     let tile_board_position;
     let game_decision = gameboard_controller.no_winner_yet;
-    const translate_positions = (position) =>{
+    const translate_positions_to_rowcol = (position) =>{
         if (isNaN(position))
             return NaN;
         let row,col;
@@ -223,6 +229,18 @@ const game_display = (() => {
             col = position - 7;
         }
             return [row,col];
+        }
+    const translate_positions_to_tile = (row,col) =>{
+        if (isNaN(row) || isNaN(col))
+            return NaN;
+        let tile_position;
+        if (row == 0)
+            tile_position = row + col + 1;
+        else if (row == 1)
+            tile_position = row + col + 3;
+        else
+            tile_position = row + col + 5;
+        return tile_position;
         }
     const get_positions = () => positions;
     const generate_display = (num_of_btns) => {
@@ -263,48 +281,60 @@ const game_display = (() => {
             tile.style.backgroundColor = "#FFFFFF";
         }
     }
+    const play_cpu_move = (current_turn) => {
+        let temp_position_holder = player_two.get_cpu_current_play_position();
+        let tile_display_position = translate_positions_to_tile(temp_position_holder[0],temp_position_holder[1]);
+        gameboard_controller.update_board(temp_position_holder[0],temp_position_holder[1],current_turn);
+        update_tile(all_tiles[tile_display_position - 1],current_turn);
+    }
     const handle_events = () => {
         all_tiles.forEach(tile =>
             tile.addEventListener('click',function(){
                 if (tile.innerText == player_one.get_shape() || tile.innerText == player_two.get_shape() || game_decision != gameboard_controller.no_winner_yet)
                     return;
                 else{
-                    tile_board_position = translate_positions(Number(tile.innerText));
+                    tile_board_position = translate_positions_to_rowcol(Number(tile.innerText));
                     let current_turn = gameboard_controller.check_turn();
-                    // switch(gameboard_controller.active_gamemode){
-                    //     case 0:
-                    //         break;
-                    //     case 1:
-                    //         player_two.set_cpu_current_play_position(gameboard_controller.generate_normal_cpu_move());
-                    //         break;
-                    //     case 2:
-                    //         player_two.set_cpu_current_play_position(gameboard_controller.generate_hard_cpu_move());
-                    //         break;
-                    //     case 3:
-                    //         player_two.set_cpu_current_play_position(gameboard_controller.generate_unbeatable_cpu_move());
-                    //         break;
-                    // }
+                    switch(gameboard_controller.active_gamemode){
+                        case 0:
+                            break;
+                        case 1:
+                            player_two.set_cpu_current_play_position(gameboard_controller.generate_normal_cpu_move());
+                            break;
+                        case 2:
+                            player_two.set_cpu_current_play_position(gameboard_controller.generate_hard_cpu_move());
+                            break;
+                        case 3:
+                            player_two.set_cpu_current_play_position(gameboard_controller.generate_unbeatable_cpu_move());
+                            break;
+                    }
                     if (gameboard_controller.active_gamemode == 0){
                         gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
                         update_tile(tile,current_turn);
-                    }
-                    // else{
-                    //     let temp_position_holder = player_two.get_cpu_current_play_position();
-                    //     gameboard_controller.update_board(temp_position_holder[0],temp_position_holder[1],current_turn);
-                    //     update_tile(tile,current_turn);
-                    //     current_turn = gameboard_controller.check_turn();
-                    // }
-                    game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
-                    if (game_decision == gameboard_controller.no_winner_yet){
-                        return;
+                        gameboard_controller.change_turn();
                     }
                     else{
-                        console.log(game_decision);
+                        gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
+                        update_tile(tile,current_turn);
+                        game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
+                        if (game_decision == gameboard_controller.no_winner_yet){
+                            gameboard_controller.change_turn();
+                            current_turn = gameboard_controller.check_turn();
+                            play_cpu_move(current_turn);
+                            gameboard_controller.change_turn();
+                            current_turn = gameboard_controller.check_turn();
+                            console.log(current_turn + "'s turn");    
+                        }
                     }
+                    game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
+                    if (game_decision == gameboard_controller.no_winner_yet)
+                        return;
+                    else
+                        console.log(game_decision);
                 }
             }));
     }
-    return{all_tiles,header_para,positions,tile_board_position,game_decision,translate_positions,get_positions,generate_display,update_tile,handle_events};
+    return{all_tiles,header_para,positions,tile_board_position,game_decision,translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,play_cpu_move,handle_events};
 })();
 // console.log(gameboard_controller.active_gamemode);
 // game_display.positions[0].innerText = "3";
@@ -319,3 +349,4 @@ game_display.generate_display(9);
 game_display.handle_events();
 const player_one =  player("Test",'x');
 const player_two =  player("Test2","o");
+console.log(gameboard_controller.active_gamemode);
