@@ -280,12 +280,13 @@ const game_display = (() => {
             tile.style.color = "#000000";
             tile.style.backgroundColor = "#FFFFFF";
         }
+        // console.log("updated tile for player" + shape);
     }
-    const play_cpu_move = (current_turn) => {
+    const play_cpu_move = (cpu_shape) => {
         let temp_position_holder = player_two.get_cpu_current_play_position();
         let tile_display_position = translate_positions_to_tile(temp_position_holder[0],temp_position_holder[1]);
-        gameboard_controller.update_board(temp_position_holder[0],temp_position_holder[1],current_turn);
-        update_tile(all_tiles[tile_display_position - 1],current_turn);
+        gameboard_controller.update_board(temp_position_holder[0],temp_position_holder[1],cpu_shape);
+        update_tile(all_tiles[tile_display_position - 1],cpu_shape);
     }
     const handle_events = () => {
         all_tiles.forEach(tile =>
@@ -314,16 +315,20 @@ const game_display = (() => {
                         gameboard_controller.change_turn();
                     }
                     else{
-                        gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
-                        update_tile(tile,current_turn);
+                        //player plays their turn
+                        gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],player_one.get_shape());
+                        update_tile(tile,player_one.get_shape());
                         game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
                         if (game_decision == gameboard_controller.no_winner_yet){
+                            //cpu plays its turn
                             gameboard_controller.change_turn();
                             current_turn = gameboard_controller.check_turn();
-                            play_cpu_move(current_turn);
+                            play_cpu_move(player_two.get_shape());
+                            //change turn back to player
                             gameboard_controller.change_turn();
                             current_turn = gameboard_controller.check_turn();
-                            console.log(current_turn + "'s turn");    
+                            console.log(current_turn + "'s turn");
+                            console.log(gameboard_controller.active_gamemode);
                         }
                     }
                     game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
