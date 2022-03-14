@@ -207,8 +207,9 @@ const game_display = (() => {
     // 00 01 02
     // 10 11 12
     // 20 21 22 
-    const all_tiles = [];
+    let all_tiles = [];
     let header_para = "";
+    let reset_button;
     const positions = document.querySelector(".positions");
     let tile_board_position;
     let game_decision = gameboard_controller.no_winner_yet;
@@ -253,6 +254,9 @@ const game_display = (() => {
         }
         header_para = document.createElement('p');
         header_para.classList.add("header_para");
+        reset_button = document.createElement('button');
+        reset_button.classList.add("reset_button");
+        reset_button.innerText = "Reset";
         switch (gameboard_controller.active_gamemode){
             case 0:
                 header_para.innerText = "Player vs Player Mode";
@@ -268,6 +272,7 @@ const game_display = (() => {
                 break;           
         }
         document.body.appendChild(header_para);
+        document.body.appendChild(reset_button);
     }
     const update_tile = (tile,shape) => {
         if (shape == player_one.get_shape()){
@@ -340,6 +345,21 @@ const game_display = (() => {
                         console.log(game_decision);
                 }
             }));
+        reset_button.addEventListener("click",function(){
+            gameboard_controller.reset_board();
+            while (positions.firstChild)
+                positions.removeChild(positions.lastChild);
+            all_tiles = [];
+            for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
+                const btn = document.createElement("button");
+                btn.classList.add("btn");
+                btn.innerText = i + 1;
+                positions.appendChild(btn);
+                all_tiles.push(btn);
+           }
+           game_decision = gameboard_controller.no_winner_yet;
+           handle_events();
+        });
     }
     return{all_tiles,header_para,positions,tile_board_position,game_decision,
         translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,handle_events};

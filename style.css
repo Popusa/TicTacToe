@@ -91,3 +91,16 @@ a:-webkit-any-link {
     margin-top: 128px;
     font-size:32px;
 }
+.reset_button{
+    position:absolute;
+    top:60%;
+    right:25%;
+    padding:1.1em;
+    width:50%;
+    height:auto;
+    font-size:1.1em;
+}
+.reset_button:hover{
+    color:rgb(255, 102, 0);
+    background-color:gray;
+}
