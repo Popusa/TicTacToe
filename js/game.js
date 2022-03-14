@@ -17,6 +17,7 @@ const gameboard_controller = (() => {
     const draw = "Draw";
     const no_winner_yet = "NWY";
     let active_gamemode;
+    let winning_positions;
     let player_one_turn = true;
     let player_two_turn = false;
     let board = [
@@ -30,31 +31,47 @@ const gameboard_controller = (() => {
         //ROWS
         for (let i = 0; i < 3; i++){
             if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != '')
-                if (board[i][0] == shape1)
+                if (board[i][0] == shape1){
+                    gameboard_controller.winning_positions = [[i,0],[i,1],[i,2]];
                     return shape1;
-                else
+                }
+                else{
+                    gameboard_controller.winning_positions = [[i,0],[i,1],[i,2]];
                     return shape2;
                  }
+        }
         //COLUMNS
         for (let i = 0; i < 3; i++){
             if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != '')
-                if (board[0][i] == shape1)
+                if (board[0][i] == shape1){
+                    gameboard_controller.winning_positions = [[0,i],[1,i],[2,i]];
                     return shape1;
-                else
+                }
+                else{
+                    gameboard_controller.winning_positions = [[0,i],[1,i],[2,i]];
                     return shape2;
-                 }
+                }
+        }
         //DIAGONALS
         if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ''){
-                    if (board[0][0] == shape1)
+                    if (board[0][0] == shape1){
+                        gameboard_controller.winning_positions = [[0,0],[1,1],[2,2]];
                         return shape1;
-                    else
+                    }
+                    else{
+                        gameboard_controller.winning_positions = [[0,0],[1,1],[2,2]];
                         return shape2;
+                    }
                 }
         else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]  && board[0][2] != ''){
-                    if (board[0][2] == shape1)
+                    if (board[0][2] == shape1){
+                        gameboard_controller.winning_positions = [[0,2],[1,1],[2,0]];
                         return shape1;
-                    else
+                    }
+                    else{
+                        gameboard_controller.winning_positions = [[0,2],[1,1],[2,0]];
                         return shape2;
+                    }
                 }
                 //DRAW CHECKING
         else{
@@ -195,7 +212,7 @@ const gameboard_controller = (() => {
             player_two_turn = false;
         }
     }
-    return{draw,no_winner_yet,board,player_one_turn,player_two_turn,get_board,update_board,check_win_condition,reset_board,
+    return{draw,no_winner_yet,winning_positions,board,player_one_turn,player_two_turn,get_board,update_board,check_win_condition,reset_board,
         get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,generate_unbeatable_cpu_move,check_turn,change_turn};
 })();
 const game_display = (() => {
@@ -297,7 +314,7 @@ const game_display = (() => {
                 cpu_move = gameboard_controller.generate_hard_cpu_move();
                 break;
             case 3:
-                cpu_move =gameboard_controller.generate_unbeatable_cpu_move();
+                cpu_move = gameboard_controller.generate_unbeatable_cpu_move();
                 break;
         }
         return cpu_move;
@@ -309,9 +326,22 @@ const game_display = (() => {
         let tile_display_position = translate_positions_to_tile(temp_position_holder[0],temp_position_holder[1]);
         update_tile(all_tiles[tile_display_position - 1],cpu_shape);
     }
+    const display_winning_positions = (game_decision,winning_positions_display) => {
+        //console.log(winning_positions_display);
+        // for (let i = 0; i < 3; i++){
+        //     if (game_decision == player_one.get_shape()){
+        //         all_tiles[winning_positions_display[i]].style.backgroundColor = "00FF00";
+        //         all_tiles[winning_positions_display[i]].style.color = "black";
+        //     }
+        //     else{
+        //         all_tiles[winning_positions_display[i]].style.backgroundColor = "FF0000";
+        //         all_tiles[winning_positions_display[i]].style.color = "white"; 
+        //     }
+        // }
+        //TBD
+    }
     const handle_events = () => {
-        all_tiles.forEach(tile =>
-            tile.addEventListener('click',function(){
+        all_tiles.forEach(tile => tile.addEventListener('click',function(){
                 if (tile.innerText == player_one.get_shape() || tile.innerText == player_two.get_shape() || game_decision != gameboard_controller.no_winner_yet)
                     return;
                 else{
@@ -341,10 +371,22 @@ const game_display = (() => {
                     game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
                     if (game_decision == gameboard_controller.no_winner_yet)
                         return;
-                    else
+                    else{
                         console.log(game_decision);
+                        if (game_decision == gameboard_controller.draw)
+                            return;
+                        else{
+                            let winning_positions_display = [];
+                            // console.log(gameboard_controller.winning_positions);
+                            // for (let i = 0; i < 3; i++){
+                            //     winning_positions_display.push(translate_positions_to_tile(gameboard_controller.winning_positions[0][0],gameboard_controller.winning_positions[0][1]));
+                            // console.log(winning_positions_display);
+                            // display_winning_positions(game_decision,winning_positions_display);
+                            //TBD
+                        }
+                    }
                 }
-            }));
+        }));
         reset_button.addEventListener("click",function(){
             gameboard_controller.reset_board();
             while (positions.firstChild)
@@ -362,7 +404,7 @@ const game_display = (() => {
         });
     }
     return{all_tiles,header_para,positions,tile_board_position,game_decision,
-        translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,handle_events};
+        translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,display_winning_positions,handle_events};
 })();
 // console.log(gameboard_controller.active_gamemode);
 // game_display.positions[0].innerText = "3";
