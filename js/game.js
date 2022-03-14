@@ -302,7 +302,6 @@ const game_display = (() => {
             tile.style.color = "#000000";
             tile.style.backgroundColor = "#FFFFFF";
         }
-        // console.log("updated tile for player" + shape);
     }
     const get_cpu_move = () => {
         let cpu_move;
@@ -326,19 +325,30 @@ const game_display = (() => {
         let tile_display_position = translate_positions_to_tile(temp_position_holder[0],temp_position_holder[1]);
         update_tile(all_tiles[tile_display_position - 1],cpu_shape);
     }
-    const display_winning_positions = (game_decision,winning_positions_display) => {
-        //console.log(winning_positions_display);
-        // for (let i = 0; i < 3; i++){
-        //     if (game_decision == player_one.get_shape()){
-        //         all_tiles[winning_positions_display[i]].style.backgroundColor = "00FF00";
-        //         all_tiles[winning_positions_display[i]].style.color = "black";
-        //     }
-        //     else{
-        //         all_tiles[winning_positions_display[i]].style.backgroundColor = "FF0000";
-        //         all_tiles[winning_positions_display[i]].style.color = "white"; 
-        //     }
-        // }
-        //TBD
+    const get_winning_positions_display = (winning_positions) => {
+        let tile_list = [];
+        let row;
+        let col;
+        for (let i = 0; i < 3; i++){
+            let temp = winning_positions[i];
+            row = temp[0];
+            col = temp[1];
+            tile_list.push(translate_positions_to_tile(row,col));
+        }
+        return tile_list;
+    }
+    const display_winning_positions = (winning_positions_tile) => {
+        console.log(winning_positions_tile);
+        for (let i = 0; i < 3; i++){
+            if (game_decision == player_one.get_shape()) {
+                all_tiles[winning_positions_tile[i] - 1].style.backgroundColor = "#00FF00";
+                all_tiles[winning_positions_tile[i] - 1].style.color = "#000000";
+            }
+            else {
+                all_tiles[winning_positions_tile[i] - 1].style.backgroundColor = "#FF0000";
+                all_tiles[winning_positions_tile[i] - 1].style.color = "#FFFFFF";
+            }
+        }
     }
     const handle_events = () => {
         all_tiles.forEach(tile => tile.addEventListener('click',function(){
@@ -376,16 +386,12 @@ const game_display = (() => {
                         if (game_decision == gameboard_controller.draw)
                             return;
                         else{
-                            let winning_positions_display = [];
-                            // console.log(gameboard_controller.winning_positions);
-                            // for (let i = 0; i < 3; i++){
-                            //     winning_positions_display.push(translate_positions_to_tile(gameboard_controller.winning_positions[0][0],gameboard_controller.winning_positions[0][1]));
-                            // console.log(winning_positions_display);
-                            // display_winning_positions(game_decision,winning_positions_display);
-                            //TBD
-                        }
+                            let winning_position_tile = get_winning_positions_display(gameboard_controller.winning_positions);
+                            console.log(winning_position_tile);
+                            display_winning_positions(winning_position_tile);
                     }
                 }
+            }
         }));
         reset_button.addEventListener("click",function(){
             gameboard_controller.reset_board();
@@ -404,7 +410,7 @@ const game_display = (() => {
         });
     }
     return{all_tiles,header_para,positions,tile_board_position,game_decision,
-        translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,display_winning_positions,handle_events};
+        translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,get_winning_positions_display,display_winning_positions,handle_events};
 })();
 // console.log(gameboard_controller.active_gamemode);
 // game_display.positions[0].innerText = "3";
