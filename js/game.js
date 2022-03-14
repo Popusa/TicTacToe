@@ -282,10 +282,26 @@ const game_display = (() => {
         }
         // console.log("updated tile for player" + shape);
     }
+    const get_cpu_move = () => {
+        let cpu_move;
+        switch(gameboard_controller.active_gamemode){
+            case 1:
+                cpu_move = gameboard_controller.generate_normal_cpu_move();
+                break;
+            case 2:
+                cpu_move = gameboard_controller.generate_hard_cpu_move();
+                break;
+            case 3:
+                cpu_move =gameboard_controller.generate_unbeatable_cpu_move();
+                break;
+        }
+        return cpu_move;
+    }
     const play_cpu_move = (cpu_shape) => {
-        let temp_position_holder = player_two.get_cpu_current_play_position();
-        let tile_display_position = translate_positions_to_tile(temp_position_holder[0],temp_position_holder[1]);
+        let temp_position_holder = get_cpu_move();
+        //console.log(temp_position_holder);
         gameboard_controller.update_board(temp_position_holder[0],temp_position_holder[1],cpu_shape);
+        let tile_display_position = translate_positions_to_tile(temp_position_holder[0],temp_position_holder[1]);
         update_tile(all_tiles[tile_display_position - 1],cpu_shape);
     }
     const handle_events = () => {
@@ -296,19 +312,6 @@ const game_display = (() => {
                 else{
                     tile_board_position = translate_positions_to_rowcol(Number(tile.innerText));
                     let current_turn = gameboard_controller.check_turn();
-                    switch(gameboard_controller.active_gamemode){
-                        case 0:
-                            break;
-                        case 1:
-                            player_two.set_cpu_current_play_position(gameboard_controller.generate_normal_cpu_move());
-                            break;
-                        case 2:
-                            player_two.set_cpu_current_play_position(gameboard_controller.generate_hard_cpu_move());
-                            break;
-                        case 3:
-                            player_two.set_cpu_current_play_position(gameboard_controller.generate_unbeatable_cpu_move());
-                            break;
-                    }
                     if (gameboard_controller.active_gamemode == 0){
                         gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
                         update_tile(tile,current_turn);
@@ -327,8 +330,7 @@ const game_display = (() => {
                             //change turn back to player
                             gameboard_controller.change_turn();
                             current_turn = gameboard_controller.check_turn();
-                            console.log(current_turn + "'s turn");
-                            console.log(gameboard_controller.active_gamemode);
+                            //console.log(current_turn + "'s turn");
                         }
                     }
                     game_decision = gameboard_controller.check_win_condition(player_one.get_shape(),player_two.get_shape());
@@ -339,7 +341,8 @@ const game_display = (() => {
                 }
             }));
     }
-    return{all_tiles,header_para,positions,tile_board_position,game_decision,translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,play_cpu_move,handle_events};
+    return{all_tiles,header_para,positions,tile_board_position,game_decision,
+        translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,handle_events};
 })();
 // console.log(gameboard_controller.active_gamemode);
 // game_display.positions[0].innerText = "3";
@@ -354,4 +357,3 @@ game_display.generate_display(9);
 game_display.handle_events();
 const player_one =  player("Test",'x');
 const player_two =  player("Test2","o");
-console.log(gameboard_controller.active_gamemode);
