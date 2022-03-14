@@ -338,7 +338,7 @@ const game_display = (() => {
         return tile_list;
     }
     const display_winning_positions = (winning_positions_tile) => {
-        console.log(winning_positions_tile);
+        //console.log(winning_positions_tile);
         for (let i = 0; i < 3; i++){
             if (game_decision == player_one.get_shape()) {
                 all_tiles[winning_positions_tile[i] - 1].style.backgroundColor = "#00FF00";
@@ -383,12 +383,14 @@ const game_display = (() => {
                         return;
                     else{
                         console.log(game_decision);
-                        if (game_decision == gameboard_controller.draw)
-                            return;
+                        if (game_decision == gameboard_controller.draw){
+                            header_para.innerText = gameboard_controller.draw;
+                        }
                         else{
                             let winning_position_tile = get_winning_positions_display(gameboard_controller.winning_positions);
-                            console.log(winning_position_tile);
+                            //console.log(winning_position_tile);
                             display_winning_positions(winning_position_tile);
+                            header_para.innerText = game_decision + " is the winner";
                     }
                 }
             }
@@ -406,6 +408,20 @@ const game_display = (() => {
                 all_tiles.push(btn);
            }
            game_decision = gameboard_controller.no_winner_yet;
+           switch (gameboard_controller.active_gamemode){
+            case 0:
+                header_para.innerText = "Player vs Player Mode";
+                break;
+            case 1:
+                header_para.innerText = "Normal CPU Mode";
+                break;
+            case 2:
+                header_para.innerText = "Hard CPU Mode";
+                break;
+            case 3:
+                header_para.innerText = "Unbeatable CPU mode";
+                break;           
+        }
            handle_events();
         });
     }
