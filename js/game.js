@@ -113,84 +113,87 @@ const gameboard_controller = (() => {
         return random_move;    
     }
     const generate_hard_cpu_move = () => {
-        let row,col;
-        //ROWS
-        for (let i = 0; i < 3; i++){
-            for (let j = 0; j < 3; j++){
-                if (board[0][i] == player_two.get_shape() && board[0][i + 1] == player_two.get_shape()){
-                    row = 0;
-                    col = i + 2;
-                    return [row,col];
-                }
-                else if (board[0][i] == player_two.get_shape() && board[0][i + 2] == player_two.get_shape()){
-                    row = 0;
-                    col = i + 1;
-                    return [row,col];
-                }
-                else if (board[0][i + 1] == player_two.get_shape() && board[0][i + 2] == player_two.get_shape()){
-                    row = 0;
-                    col = i;
-                    return [row,col];
-                }
-            }
-        }
-        //COLUMNS
-        for (let i = 0; i < 3; i++){
-            for (let j = 0; j < 3; j++){
-                if (board[i][0] == player_two.get_shape() && board[i + 1][0] == player_two.get_shape()){
-                    row = 0;
-                    col = i + 2;
-                    return [row,col];
-                }
-                else if (board[i][0] == player_two.get_shape() && board[i + 2][0] == player_two.get_shape()){
-                    row = 0;
-                    col = i + 1;
-                    return [row,col];
-                }
-                else if (board[i + 1][0] == player_two.get_shape() && board[i + 2][0] == player_two.get_shape()){
-                    row = i;
-                    col = 0;
-                    return [row,col];
-                }
-            }
-        }
-        //DIAGONALS
-        if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
-            row = 0;
-            col = 0;
-            return [row,col];
-        }
-        else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
-            row = 1;
-            col = 1;
-            return [row,col];
-        }
-        else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-            row = 2;
-            col = 2;
-            return [row,col];
-        }
-        else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
-            row = 1;
-            col = 1;
-            return [row,col];
-        }
-        else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-            row = 2;
-            col = 0;
-            return [row,col];
-        }
-        else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-            row = 0;
-            col = 2;
-            return [row,col];
-        }
-        else{
+        // let row,col;
+        // //ROWS
+        // for (let i = 0; i < 3; i++){
+        //     for (let j = 0; j < 3; j++){
+        //         if (board[0][i] == player_two.get_shape() && board[0][1] == player_two.get_shape()){
+        //             row = 0;
+        //             col = i + 2;
+        //             return [row,col];
+        //         }
+        //         else if (board[0][i] == player_two.get_shape() && board[0][2] == player_two.get_shape()){
+        //             row = 0;
+        //             col = i + 1;
+        //             return [row,col];
+        //         }
+        //         else if (board[0][1] == player_two.get_shape() && board[0][2] == player_two.get_shape()){
+        //             row = 0;
+        //             col = i;
+        //             return [row,col];
+        //         }
+        //     }
+        // }
+        // //COLUMNS
+        // for (let i = 0; i < 3; i++){
+        //     for (let j = 0; j < 3; j++){
+        //         if (board[i][0] == player_two.get_shape() && board[1][0] == player_two.get_shape()){
+        //             row = 0;
+        //             col = i + 2;
+        //             return [row,col];
+        //         }
+        //         else if (board[i][0] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
+        //             row = 0;
+        //             col = i + 1;
+        //             return [row,col];
+        //         }
+        //         else if (board[1][0] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
+        //             row = 0;
+        //             col = i;
+        //             return [row,col];
+        //         }
+        //     }
+        // }
+        // //DIAGONALS
+        // if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
+        //     row = 0;
+        //     col = 0;
+        //     return [row,col];
+        // }
+        // else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
+        //     row = 1;
+        //     col = 1;
+        //     return [row,col];
+        // }
+        // else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
+        //     row = 2;
+        //     col = 2;
+        //     return [row,col];
+        // }
+        // else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
+        //     row = 1;
+        //     col = 1;
+        //     return [row,col];
+        // }
+        // else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
+        //     row = 2;
+        //     col = 0;
+        //     return [row,col];
+        // }
+        // else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
+        //     row = 0;
+        //     col = 2;
+        //     return [row,col];
+        // }
+        // else{
             let move = get_random_move();
             return move;
-        }
+        // }
     }
     const generate_unbeatable_cpu_move = () => {
+        //this is random for now, implementation will come later
+        let random_move = get_random_move();
+        return random_move;
         //MINIMAX TBD
     }
     //turn is checked after each move
