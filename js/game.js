@@ -230,6 +230,8 @@ const game_display = (() => {
     let all_tiles = [];
     let header_para = "";
     let reset_button;
+    let change_player_one_name_button;
+    let change_player_two_name_button;
     const positions = document.querySelector(".positions");
     let tile_board_position;
     let game_decision = gameboard_controller.no_winner_yet;
@@ -277,6 +279,12 @@ const game_display = (() => {
         reset_button = document.createElement('button');
         reset_button.classList.add("reset_button");
         reset_button.innerText = "Reset";
+        change_player_one_name_button = document.createElement('button');
+        change_player_two_name_button = document.createElement('button');
+        change_player_one_name_button.classList.add("change_player_one_name_button");
+        change_player_two_name_button.classList.add("change_player_two_name_button");
+        change_player_one_name_button.innerText = "Player One";
+        change_player_two_name_button.innerText = "Player Two";
         switch (gameboard_controller.active_gamemode){
             case 0:
                 header_para.innerText = "Player vs Player Mode";
@@ -293,6 +301,8 @@ const game_display = (() => {
         }
         document.body.appendChild(header_para);
         document.body.appendChild(reset_button);
+        document.body.appendChild(change_player_one_name_button);
+        document.body.appendChild(change_player_two_name_button);
     }
     const update_tile = (tile,shape) => {
         if (shape == player_one.get_shape()){
@@ -427,8 +437,14 @@ const game_display = (() => {
         }
            handle_events();
         });
+        change_player_one_name_button.addEventListener("click",function(){
+            
+        });
+        change_player_two_name_button.addEventListener("click",function(){
+
+        });
     }
-    return{all_tiles,header_para,positions,tile_board_position,game_decision,
+    return{all_tiles,header_para,change_player_one_name_button,change_player_two_name_button,positions,tile_board_position,game_decision,
         translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,get_winning_positions_display,display_winning_positions,handle_events};
 })();
 // console.log(gameboard_controller.active_gamemode);
