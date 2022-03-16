@@ -271,7 +271,7 @@ const game_display = (() => {
      for (let i = 0; i < num_of_btns; i++){
              const btn = document.createElement("button");
              btn.classList.add("btn");
-             btn.innerText = i + 1;
+             btn.innerText = " ";
              positions.appendChild(btn);
              all_tiles.push(btn);
         }
@@ -373,7 +373,7 @@ const game_display = (() => {
                 if (tile.innerText == player_one.get_shape() || tile.innerText == player_two.get_shape() || game_decision != gameboard_controller.no_winner_yet)
                     return;
                 else{
-                    tile_board_position = translate_positions_to_rowcol(Number(tile.innerText));
+                    tile_board_position = translate_positions_to_rowcol(Number(all_tiles.indexOf(tile) + 1));
                     let current_turn = gameboard_controller.check_turn();
                     if (gameboard_controller.active_gamemode == 0){
                         gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
@@ -421,7 +421,7 @@ const game_display = (() => {
             for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
                 const btn = document.createElement("button");
                 btn.classList.add("btn");
-                btn.innerText = i + 1;
+                btn.innerText = " ";
                 positions.appendChild(btn);
                 all_tiles.push(btn);
            }
