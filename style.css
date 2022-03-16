@@ -58,9 +58,8 @@ a:-webkit-any-link {
     text-align:center;
     display:flex;
     position:fixed;
-    top: 45%;
-    left: 38%;
-    right:0;
+    top: 48%;
+    left: 40%;
     max-width:100%;
     max-height:100%;
     flex-wrap:wrap;
@@ -68,15 +67,13 @@ a:-webkit-any-link {
 }
 .positions{
     display:grid;
-    grid-template-columns: 150px 150px 150px;
-    width:200px;
-    height:200px;
-    position: absolute;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(3,1fr);
 }
 .positions > button{
     background-color: rgba(128, 128, 128, 0.514);
     min-width: 5em;
-    min-height: 2em;
+    min-height: 3em;
     font-size:28px;
     border-radius:0.8em;
     border-color:black;
@@ -88,14 +85,13 @@ a:-webkit-any-link {
     display:flex;
     justify-content: center;
     align-items:center;
-    top:10%;
-    left:44%;
+    margin-left:2em;
     font-size:32px;
     text-align:center;
 }
 .reset_button{
     position:absolute;
-    top:60%;
+    top:70%;
     right:25%;
     padding:1.1em;
     width:50%;
@@ -111,7 +107,7 @@ a:-webkit-any-link {
     display:flex;
     justify-content: center;
     align-items: center;
-    top:20%;
+    top:25%;
     padding:1.1em;
     height:auto;
     font-size:1.1em;
@@ -133,7 +129,7 @@ a:-webkit-any-link {
 }
 .change_player_two_name_button{
     position:fixed;
-    left:52%;
+    left:50%;
     margin-left:30px;
     background-color:white;
     color:black;
