@@ -230,6 +230,9 @@ const game_display = (() => {
     let all_tiles = [];
     let header_para = "";
     let reset_button;
+    let go_back_button;
+    let change_player_one_name_button;
+    let change_player_two_name_button;
     const positions = document.querySelector(".positions");
     let tile_board_position;
     let game_decision = gameboard_controller.no_winner_yet;
@@ -268,7 +271,7 @@ const game_display = (() => {
      for (let i = 0; i < num_of_btns; i++){
              const btn = document.createElement("button");
              btn.classList.add("btn");
-             btn.innerText = i + 1;
+             btn.innerText = " ";
              positions.appendChild(btn);
              all_tiles.push(btn);
         }
@@ -277,6 +280,15 @@ const game_display = (() => {
         reset_button = document.createElement('button');
         reset_button.classList.add("reset_button");
         reset_button.innerText = "Reset";
+        go_back_button = document.createElement('button');
+        go_back_button.classList.add('go_back_button');
+        go_back_button.innerText = "Go Back";
+        change_player_one_name_button = document.createElement('button');
+        change_player_two_name_button = document.createElement('button');
+        change_player_one_name_button.classList.add("change_player_one_name_button");
+        change_player_two_name_button.classList.add("change_player_two_name_button");
+        change_player_one_name_button.innerText = "Player One";
+        change_player_two_name_button.innerText = "Player Two";
         switch (gameboard_controller.active_gamemode){
             case 0:
                 header_para.innerText = "Player vs Player Mode";
@@ -293,6 +305,9 @@ const game_display = (() => {
         }
         document.body.appendChild(header_para);
         document.body.appendChild(reset_button);
+        document.body.appendChild(change_player_one_name_button);
+        document.body.appendChild(change_player_two_name_button);
+        document.body.appendChild(go_back_button);
     }
     const update_tile = (tile,shape) => {
         if (shape == player_one.get_shape()){
@@ -358,7 +373,7 @@ const game_display = (() => {
                 if (tile.innerText == player_one.get_shape() || tile.innerText == player_two.get_shape() || game_decision != gameboard_controller.no_winner_yet)
                     return;
                 else{
-                    tile_board_position = translate_positions_to_rowcol(Number(tile.innerText));
+                    tile_board_position = translate_positions_to_rowcol(Number(all_tiles.indexOf(tile) + 1));
                     let current_turn = gameboard_controller.check_turn();
                     if (gameboard_controller.active_gamemode == 0){
                         gameboard_controller.update_board(tile_board_position[0],tile_board_position[1],current_turn);
@@ -406,7 +421,7 @@ const game_display = (() => {
             for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
                 const btn = document.createElement("button");
                 btn.classList.add("btn");
-                btn.innerText = i + 1;
+                btn.innerText = " ";
                 positions.appendChild(btn);
                 all_tiles.push(btn);
            }
@@ -427,8 +442,17 @@ const game_display = (() => {
         }
            handle_events();
         });
+        change_player_one_name_button.addEventListener("click",function(){
+            
+        });
+        change_player_two_name_button.addEventListener("click",function(){
+
+        });
+        go_back_button.addEventListener("click",function(){
+            location.href = 'index.html';
+        });
     }
-    return{all_tiles,header_para,positions,tile_board_position,game_decision,
+    return{all_tiles,header_para,change_player_one_name_button,change_player_two_name_button,positions,tile_board_position,game_decision,
         translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,get_winning_positions_display,display_winning_positions,handle_events};
 })();
 // console.log(gameboard_controller.active_gamemode);
