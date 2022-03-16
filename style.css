@@ -82,11 +82,14 @@ a:-webkit-any-link {
     background-color:green;
 }
 .header_para{
+    position:absolute;
+    top:0;
+    left:42%;
     display:flex;
     justify-content: center;
     align-items:center;
     margin-left:2em;
-    font-size:32px;
+    font-size:2.3em;
     text-align:center;
 }
 .reset_button{
@@ -138,7 +141,7 @@ a:-webkit-any-link {
 .go_back_button{
     width: auto;
     margin-left:3%;
-    margin-top: -20px;
+    margin-top: 5em;
     padding:1.1em;
     border-radius:1em;
     background-color: gray;
@@ -154,8 +157,21 @@ a:-webkit-any-link {
     -o-transform: translateX(4px);
     transform: translateX(4px);
 }
-.change_player_one_modal,.change_player_two_modal{
-    position:absolute;
-    top:50;
-    left:50;
+/* .change_player_one_modal,.change_player_two_modal{
+    background-color:rgba(0, 0, 0, 0.4);
+    min-width:100%;
+    min-height:100%;
+    z-index:-1;
 }
+#change_player_one_form,#change_player_two_form{
+    text-align:center;
+    font-size: 1em;
+    padding:12px;
+    position:fixed;
+    top:35%;
+    left:50%;
+    margin-left:-115px;
+    margin-right:0;
+    background-color: white;
+    z-index:-1;
+} */
