@@ -230,6 +230,7 @@ const game_display = (() => {
     let all_tiles = [];
     let header_para = "";
     let reset_button;
+    let go_back_button;
     let change_player_one_name_button;
     let change_player_two_name_button;
     const positions = document.querySelector(".positions");
@@ -279,6 +280,9 @@ const game_display = (() => {
         reset_button = document.createElement('button');
         reset_button.classList.add("reset_button");
         reset_button.innerText = "Reset";
+        go_back_button = document.createElement('button');
+        go_back_button.classList.add('go_back_button');
+        go_back_button.innerText = "Go Back";
         change_player_one_name_button = document.createElement('button');
         change_player_two_name_button = document.createElement('button');
         change_player_one_name_button.classList.add("change_player_one_name_button");
@@ -303,6 +307,7 @@ const game_display = (() => {
         document.body.appendChild(reset_button);
         document.body.appendChild(change_player_one_name_button);
         document.body.appendChild(change_player_two_name_button);
+        document.body.appendChild(go_back_button);
     }
     const update_tile = (tile,shape) => {
         if (shape == player_one.get_shape()){
@@ -442,6 +447,9 @@ const game_display = (() => {
         });
         change_player_two_name_button.addEventListener("click",function(){
 
+        });
+        go_back_button.addEventListener("click",function(){
+            location.href = 'index.html';
         });
     }
     return{all_tiles,header_para,change_player_one_name_button,change_player_two_name_button,positions,tile_board_position,game_decision,

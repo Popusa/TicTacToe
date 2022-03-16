@@ -95,7 +95,7 @@ a:-webkit-any-link {
 }
 .reset_button{
     position:absolute;
-    top:80%;
+    top:60%;
     right:25%;
     padding:1.1em;
     width:50%;
@@ -139,3 +139,22 @@ a:-webkit-any-link {
     color:black;
     border-width:0.3em;
 } 
+.go_back_button{
+    width: auto;
+    margin-left:3%;
+    margin-top: -20px;
+    padding:1.1em;
+    border-radius:1em;
+    background-color: gray;
+    color:white;
+}
+.go_back_button:hover{
+    background-color: orange;
+}
+.go_back_button::after {
+    -webkit-transform: translateX(4px);
+    -moz-transform: translateX(4px);
+    -ms-transform: translateX(4px);
+    -o-transform: translateX(4px);
+    transform: translateX(4px);
+}
