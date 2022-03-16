@@ -82,7 +82,6 @@ a:-webkit-any-link {
     background-color:green;
 }
 .header_para{
-    position:absolute;
     top:0;
     left:42%;
     display:flex;
@@ -141,7 +140,7 @@ a:-webkit-any-link {
 .go_back_button{
     width: auto;
     margin-left:3%;
-    margin-top: 5em;
+    margin-top: 1em;
     padding:1.1em;
     border-radius:1em;
     background-color: gray;
