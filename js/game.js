@@ -25,11 +25,14 @@ const gameboard_controller = (() => {
     ['','',''],
     ['','',''],
     ];
-    let all_scores = {
-        x: 1,
-        o: -1,
-        Draw:0
-      }
+    const map_status_to_score = (status) => {
+        if (status == player_one.get_shape())
+            return -10;
+        else if (status == player_two.get_shape())
+            return 10;
+        else
+            return 0;
+    }
     const get_board = () => board;
     const update_board = (row,col,shape) => gameboard_controller.board[row][col] = shape;
     const check_win_condition = (shape1,shape2) => {
@@ -194,63 +197,61 @@ const gameboard_controller = (() => {
         // }
     }
       function minimax(board,maximizing_player) {
-        // let status = gameboard_controller.check_win_condition();
-        // console.log(status);
-        // if (status != gameboard_controller.no_winner_yet) {
-        //   return all_scores[status];
-        // }
-        // if (maximizing_player) {
-        //   let best_score = -Infinity;
-        //   for (let i = 0; i < 3; i++) {
-        //     for (let j = 0; j < 3; j++) {
-        //       // Is the spot available?
-        //       if (board[i][j] == '') {
-        //         board[i][j] = player_two.get_shape();
-        //         let score = minimax(board,false);
-        //         board[i][j] = '';
-        //         best_score = Math.max(score, best_score);
-        //       }
-        //     }
-        //   }
-        //   return best_score;
-        // } 
-        // else {
-        //   let best_score = Infinity;
-        //   for (let i = 0; i < 3; i++) {
-        //     for (let j = 0; j < 3; j++) {
-        //       // Is the spot available?
-        //       if (board[i][j] == '') {
-        //         board[i][j] = player_one.get_shape();
-        //         let score = minimax(board,true);
-        //         board[i][j] = '';
-        //         best_score = Math.min(score, best_score);
-        //       }
-        //     }
-        //   }
-        //   return best_score;
-        // }
+        let status = gameboard_controller.check_win_condition(player_one.get_shape,player_two.get_shape());
+        if (status != gameboard_controller.no_winner_yet) {
+            console.log(status);
+            return map_status_to_score(status);
+        }
+        if (maximizing_player) {
+          let best_score = -Infinity;
+          for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+              // Is the spot available?
+              if (board[i][j] == '') {
+                board[i][j] = player_two.get_shape();
+                let score = minimax(board,false);
+                board[i][j] = '';
+                best_score = Math.max(score, best_score);
+              }
+            }
+          }
+          return best_score;
+        } 
+        else {
+          let best_score = Infinity;
+          for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+              // Is the spot available?
+              if (board[i][j] == '') {
+                board[i][j] = player_one.get_shape();
+                let score = minimax(board,true);
+                board[i][j] = '';
+                best_score = Math.min(score, best_score);
+              }
+            }
+          }
+          return best_score;
+        }
     }
     const generate_unbeatable_cpu_move = () => {
         // AI to make its turn
-        // let best_score = -Infinity;
-        // let best_move;
-        // for (let i = 0; i < 3; i++) {
-        //     for (let j = 0; j < 3; j++) {
-        //         // Is the spot available?
-        //         if (board[i][j] == '') {
-        //             board[i][j] = player_two.get_shape();
-        //             let score = minimax(board,false);
-        //             board[i][j] = '';
-        //             if (score > best_score) {
-        //                 best_score = score;
-        //                 best_move = [i,j];
-        //             }
-        //         }
-        //     }
-        // }
-        // return best_move;
-        let move = get_random_move();
-        return move;
+        let best_score = -Infinity;
+        let best_move;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                // Is the spot available?
+                if (board[i][j] == '') {
+                    board[i][j] = player_two.get_shape();
+                    let score = minimax(board,false);
+                    board[i][j] = '';
+                    if (score > best_score) {
+                        best_score = score;
+                        best_move = [i,j];
+                    }
+                }
+            }
+        }
+        return best_move;
     }
     //turn is checked after each move
     const check_turn = () => {
@@ -271,7 +272,7 @@ const gameboard_controller = (() => {
             player_two_turn = false;
         }
     }
-    return{draw,no_winner_yet,winning_positions,board,player_one_turn,player_two_turn,all_scores,get_board,update_board,check_win_condition,reset_board,
+    return{draw,no_winner_yet,winning_positions,board,player_one_turn,player_two_turn,map_status_to_score,get_board,update_board,check_win_condition,reset_board,
         get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,minimax,generate_unbeatable_cpu_move,check_turn,change_turn};
 })();
 const game_display = (() => {
