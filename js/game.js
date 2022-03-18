@@ -196,11 +196,10 @@ const gameboard_controller = (() => {
             return move;
         // }
     }
-      function minimax(board,maximizing_player) {
-        let status = gameboard_controller.check_win_condition(player_one.get_shape,player_two.get_shape());
-        if (status != gameboard_controller.no_winner_yet) {
-            console.log(status);
-            return map_status_to_score(status);
+    function minimax(board,maximizing_player) {
+        let score = check_win_condition(player_one.get_shape(),player_two.get_shape());
+        if (score != no_winner_yet) {
+          return map_status_to_score(score);
         }
         if (maximizing_player) {
           let best_score = -Infinity;
@@ -211,7 +210,7 @@ const gameboard_controller = (() => {
                 board[i][j] = player_two.get_shape();
                 let score = minimax(board,false);
                 board[i][j] = '';
-                best_score = Math.max(score, best_score);
+                best_score =  Math.max(score, best_score);
               }
             }
           }
@@ -232,7 +231,7 @@ const gameboard_controller = (() => {
           }
           return best_score;
         }
-    }
+      }
     const generate_unbeatable_cpu_move = () => {
         // AI to make its turn
         let best_score = -Infinity;
