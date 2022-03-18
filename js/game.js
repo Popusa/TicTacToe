@@ -119,82 +119,88 @@ const gameboard_controller = (() => {
         return random_move;    
     }
     const generate_hard_cpu_move = () => {
-        // let row,col;
-        // //ROWS
-        // for (let i = 0; i < 3; i++){
-        //     for (let j = 0; j < 3; j++){
-        //         if (board[0][i] == player_two.get_shape() && board[0][1] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 2;
-        //             return [row,col];
-        //         }
-        //         else if (board[0][i] == player_two.get_shape() && board[0][2] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 1;
-        //             return [row,col];
-        //         }
-        //         else if (board[0][1] == player_two.get_shape() && board[0][2] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i;
-        //             return [row,col];
-        //         }
-        //     }
-        // }
-        // //COLUMNS
-        // for (let i = 0; i < 3; i++){
-        //     for (let j = 0; j < 3; j++){
-        //         if (board[i][0] == player_two.get_shape() && board[1][0] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 2;
-        //             return [row,col];
-        //         }
-        //         else if (board[i][0] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 1;
-        //             return [row,col];
-        //         }
-        //         else if (board[1][0] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i;
-        //             return [row,col];
-        //         }
-        //     }
-        // }
-        // //DIAGONALS
-        // if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
-        //     row = 0;
-        //     col = 0;
-        //     return [row,col];
-        // }
-        // else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
-        //     row = 1;
-        //     col = 1;
-        //     return [row,col];
-        // }
-        // else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-        //     row = 2;
-        //     col = 2;
-        //     return [row,col];
-        // }
-        // else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
-        //     row = 1;
-        //     col = 1;
-        //     return [row,col];
-        // }
-        // else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-        //     row = 2;
-        //     col = 0;
-        //     return [row,col];
-        // }
-        // else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-        //     row = 0;
-        //     col = 2;
-        //     return [row,col];
-        // }
-        // else{
+        let row,col;
+        //ROWS
+        if (board[0][0] == player_two.get_shape() && board[0][1] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
+            return [0,2];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[0][2] == player_two.get_shape() && board[0][1] != player_one.get_shape()){
+            return [0,1];
+        }
+        else if (board[0][1] == player_two.get_shape() && board[0][2] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+            return [0,0];
+        }
+        if (board[1][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[1][2] != player_one.get_shape()){
+            return [1,2];
+        }
+        else if (board[1][0] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[1][1] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[1][0] != player_one.get_shape()){
+            return [1,0];
+        }
+        if (board[2][0] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+            return [2,2];
+        }
+        else if (board[2][0] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[2][1] != player_one.get_shape()){
+            return [2,1];
+        }
+        else if (board[2][1] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+            return [2,0];
+        }
+        //COLUMNS
+        if (board[0][0] == player_two.get_shape() && board[1][0] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+            return [2,0];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[1][0] != player_one.get_shape()){
+            return [1,0];
+        }
+        else if (board[1][0] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+            return [0,0];
+        }
+        if (board[0][1] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][1] != player_one.get_shape()){
+            return [2,1];
+        }
+        else if (board[0][1] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[1][1] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[0][1] != player_one.get_shape()){
+            return [0,1];
+        }
+        if (board[0][2] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+            return [2,2];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[1][2] != player_one.get_shape()){
+            return [1,2];
+        }
+        else if (board[1][2] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
+            return [0,2];
+        }   
+        //DIAGONALS
+        if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+            return [0,0];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+            return [2,2];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+            return [2,0];
+        }
+        else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
+            row = 0;
+            col = 2;
+            return [0,2];
+        }
+        else{
             let move = get_random_move();
             return move;
-        // }
+        }
     }
     function minimax(board,maximizing_player) {
         let score = check_win_condition(player_one.get_shape(),player_two.get_shape());
