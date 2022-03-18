@@ -25,6 +25,14 @@ const gameboard_controller = (() => {
     ['','',''],
     ['','',''],
     ];
+    const map_status_to_score = (status) => {
+        if (status == player_one.get_shape())
+            return -10;
+        else if (status == player_two.get_shape())
+            return 10;
+        else
+            return 0;
+    }
     const get_board = () => board;
     const update_board = (row,col,shape) => gameboard_controller.board[row][col] = shape;
     const check_win_condition = (shape1,shape2) => {
@@ -98,10 +106,8 @@ const gameboard_controller = (() => {
         }
     }
     const get_random_move = () => {
-        let row;
-        let col;
-        row = Math.floor(Math.random() * 3);
-        col = Math.floor(Math.random() * 3);
+        let row = Math.floor(Math.random() * 3);
+        let col = Math.floor(Math.random() * 3);
         while (board[row][col] == player_one.get_shape() || board[row][col] == player_two.get_shape()){
             row = Math.floor(Math.random() * 3);
             col = Math.floor(Math.random() * 3);
@@ -113,88 +119,144 @@ const gameboard_controller = (() => {
         return random_move;    
     }
     const generate_hard_cpu_move = () => {
-        // let row,col;
-        // //ROWS
-        // for (let i = 0; i < 3; i++){
-        //     for (let j = 0; j < 3; j++){
-        //         if (board[0][i] == player_two.get_shape() && board[0][1] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 2;
-        //             return [row,col];
-        //         }
-        //         else if (board[0][i] == player_two.get_shape() && board[0][2] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 1;
-        //             return [row,col];
-        //         }
-        //         else if (board[0][1] == player_two.get_shape() && board[0][2] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i;
-        //             return [row,col];
-        //         }
-        //     }
-        // }
-        // //COLUMNS
-        // for (let i = 0; i < 3; i++){
-        //     for (let j = 0; j < 3; j++){
-        //         if (board[i][0] == player_two.get_shape() && board[1][0] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 2;
-        //             return [row,col];
-        //         }
-        //         else if (board[i][0] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i + 1;
-        //             return [row,col];
-        //         }
-        //         else if (board[1][0] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
-        //             row = 0;
-        //             col = i;
-        //             return [row,col];
-        //         }
-        //     }
-        // }
-        // //DIAGONALS
-        // if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
-        //     row = 0;
-        //     col = 0;
-        //     return [row,col];
-        // }
-        // else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape()){
-        //     row = 1;
-        //     col = 1;
-        //     return [row,col];
-        // }
-        // else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-        //     row = 2;
-        //     col = 2;
-        //     return [row,col];
-        // }
-        // else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape()){
-        //     row = 1;
-        //     col = 1;
-        //     return [row,col];
-        // }
-        // else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-        //     row = 2;
-        //     col = 0;
-        //     return [row,col];
-        // }
-        // else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape()){
-        //     row = 0;
-        //     col = 2;
-        //     return [row,col];
-        // }
-        // else{
+        let row,col;
+        //ROWS
+        if (board[0][0] == player_two.get_shape() && board[0][1] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
+            return [0,2];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[0][2] == player_two.get_shape() && board[0][1] != player_one.get_shape()){
+            return [0,1];
+        }
+        else if (board[0][1] == player_two.get_shape() && board[0][2] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+            return [0,0];
+        }
+        if (board[1][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[1][2] != player_one.get_shape()){
+            return [1,2];
+        }
+        else if (board[1][0] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[1][1] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[1][0] != player_one.get_shape()){
+            return [1,0];
+        }
+        if (board[2][0] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+            return [2,2];
+        }
+        else if (board[2][0] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[2][1] != player_one.get_shape()){
+            return [2,1];
+        }
+        else if (board[2][1] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+            return [2,0];
+        }
+        //COLUMNS
+        if (board[0][0] == player_two.get_shape() && board[1][0] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+            return [2,0];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[1][0] != player_one.get_shape()){
+            return [1,0];
+        }
+        else if (board[1][0] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+            return [0,0];
+        }
+        if (board[0][1] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][1] != player_one.get_shape()){
+            return [2,1];
+        }
+        else if (board[0][1] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[1][1] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[0][1] != player_one.get_shape()){
+            return [0,1];
+        }
+        if (board[0][2] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+            return [2,2];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[1][2] != player_one.get_shape()){
+            return [1,2];
+        }
+        else if (board[1][2] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
+            return [0,2];
+        }   
+        //DIAGONALS
+        if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+            return [0,0];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+            return [2,2];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+            return [1,1];
+        }
+        else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+            return [2,0];
+        }
+        else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
+            row = 0;
+            col = 2;
+            return [0,2];
+        }
+        else{
             let move = get_random_move();
             return move;
-        // }
+        }
     }
+    function minimax(board,maximizing_player) {
+        let score = check_win_condition(player_one.get_shape(),player_two.get_shape());
+        if (score != no_winner_yet) {
+          return map_status_to_score(score);
+        }
+        if (maximizing_player) {
+          let best_score = -Infinity;
+          for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+              // Is the spot available?
+              if (board[i][j] == '') {
+                board[i][j] = player_two.get_shape();
+                let score = minimax(board,false);
+                board[i][j] = '';
+                best_score =  Math.max(score, best_score);
+              }
+            }
+          }
+          return best_score;
+        } 
+        else {
+          let best_score = Infinity;
+          for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+              // Is the spot available?
+              if (board[i][j] == '') {
+                board[i][j] = player_one.get_shape();
+                let score = minimax(board,true);
+                board[i][j] = '';
+                best_score = Math.min(score, best_score);
+              }
+            }
+          }
+          return best_score;
+        }
+      }
     const generate_unbeatable_cpu_move = () => {
-        //this is random for now, implementation will come later
-        let random_move = get_random_move();
-        return random_move;
-        //MINIMAX TBD
+        // AI to make its turn
+        let best_score = -Infinity;
+        let best_move;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                // Is the spot available?
+                if (board[i][j] == '') {
+                    board[i][j] = player_two.get_shape();
+                    let score = minimax(board,false);
+                    board[i][j] = '';
+                    if (score > best_score) {
+                        best_score = score;
+                        best_move = [i,j];
+                    }
+                }
+            }
+        }
+        return best_move;
     }
     //turn is checked after each move
     const check_turn = () => {
@@ -215,8 +277,8 @@ const gameboard_controller = (() => {
             player_two_turn = false;
         }
     }
-    return{draw,no_winner_yet,winning_positions,board,player_one_turn,player_two_turn,get_board,update_board,check_win_condition,reset_board,
-        get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,generate_unbeatable_cpu_move,check_turn,change_turn};
+    return{draw,no_winner_yet,winning_positions,board,player_one_turn,player_two_turn,map_status_to_score,get_board,update_board,check_win_condition,reset_board,
+        get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,minimax,generate_unbeatable_cpu_move,check_turn,change_turn};
 })();
 const game_display = (() => {
     // 1 2 3 
@@ -271,7 +333,7 @@ const game_display = (() => {
      for (let i = 0; i < num_of_btns; i++){
              const btn = document.createElement("button");
              btn.classList.add("btn");
-             btn.innerText = " ";
+             btn.innerText = "";
              positions.appendChild(btn);
              all_tiles.push(btn);
         }
@@ -334,11 +396,11 @@ const game_display = (() => {
                 cpu_move = gameboard_controller.generate_unbeatable_cpu_move();
                 break;
         }
+        //console.log(cpu_move);
         return cpu_move;
     }
     const play_cpu_move = (cpu_shape) => {
         let temp_position_holder = get_cpu_move();
-        //console.log(temp_position_holder);
         gameboard_controller.update_board(temp_position_holder[0],temp_position_holder[1],cpu_shape);
         let tile_display_position = translate_positions_to_tile(temp_position_holder[0],temp_position_holder[1]);
         update_tile(all_tiles[tile_display_position - 1],cpu_shape);
@@ -421,7 +483,7 @@ const game_display = (() => {
             for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
                 const btn = document.createElement("button");
                 btn.classList.add("btn");
-                btn.innerText = " ";
+                btn.innerText = "";
                 positions.appendChild(btn);
                 all_tiles.push(btn);
            }
@@ -467,4 +529,4 @@ else
 game_display.generate_display(9);
 game_display.handle_events();
 const player_one =  player("Test",'x');
-const player_two =  player("Test2","o");
+const player_two =  player("Test2",'o');
