@@ -524,14 +524,14 @@ const game_display = (() => {
             change_player_one_name_button.style.zIndex = "-1";
             change_player_two_name_button.style.zIndex = "-1";
         });
-        change_player_one_name_form.addEventListener('submit',function(e){
-            e.preventDefault();
-            change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
-        });
-        change_player_two_name_form.addEventListener('submit',function(e){
-            e.preventDefault();
-            change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
-        });
+        // change_player_one_name_form.addEventListener('submit',function(e){
+        //     e.preventDefault();
+        //     change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
+        // });
+        // change_player_two_name_form.addEventListener('submit',function(e){
+        //     e.preventDefault();
+        //     change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
+        // });
         close_change_name_one_form_button.addEventListener('click',function(){
             change_player_one_name_modal.style.display = "none";
             reset_button.style.zIndex = "1";
