@@ -293,6 +293,12 @@ const game_display = (() => {
     let header_para = "";
     let reset_button;
     let go_back_button;
+    const close_change_name_one_form_button = document.querySelector('#close_change_name_one_form_button');
+    const close_change_name_two_form_button = document.querySelector('#close_change_name_two_form_button');
+    const change_player_one_name_modal = document.querySelector('.change_player_one_modal');
+    const change_player_two_name_modal = document.querySelector('.change_player_two_modal'); 
+    const change_player_one_name_form = document.querySelector('#change_player_one_name_form'); 
+    const change_player_two_name_form = document.querySelector('#change_player_two_name_form');  
     let change_player_one_name_button;
     let change_player_two_name_button;
     const positions = document.querySelector(".positions");
@@ -505,16 +511,48 @@ const game_display = (() => {
            handle_events();
         });
         change_player_one_name_button.addEventListener("click",function(){
-            
+            change_player_one_name_modal.style.display = "flex";
+            reset_button.style.zIndex = "-1";
+            all_tiles.forEach(tile => tile.style.zIndex = "-1");
+            change_player_one_name_button.style.zIndex = "-1";
+            change_player_two_name_button.style.zIndex = "-1";
         });
         change_player_two_name_button.addEventListener("click",function(){
-
+            change_player_two_name_modal.style.display = "flex";
+            reset_button.style.zIndex = "-1";
+            all_tiles.forEach(tile => tile.style.zIndex = "-1");
+            change_player_one_name_button.style.zIndex = "-1";
+            change_player_two_name_button.style.zIndex = "-1";
+        });
+        change_player_one_name_form.addEventListener('submit',function(e){
+            e.preventDefault();
+            change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
+        });
+        change_player_two_name_form.addEventListener('submit',function(e){
+            e.preventDefault();
+            change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
+        });
+        close_change_name_one_form_button.addEventListener('click',function(){
+            change_player_one_name_modal.style.display = "none";
+            reset_button.style.zIndex = "1";
+            all_tiles.forEach(tile => tile.style.zIndex = "1");
+            change_player_one_name_button.style.zIndex = "1";
+            change_player_two_name_button.style.zIndex = "1";
+        });
+        //closing form two didnt work until I made a dedicated button for it
+        close_change_name_two_form_button.addEventListener('click',function(){
+            change_player_two_name_modal.style.display = "none";
+            reset_button.style.zIndex = "1";
+            all_tiles.forEach(tile => tile.style.zIndex = "1");
+            change_player_one_name_button.style.zIndex = "1";
+            change_player_two_name_button.style.zIndex = "1";
         });
         go_back_button.addEventListener("click",function(){
             location.href = 'index.html';
         });
     }
-    return{all_tiles,header_para,change_player_one_name_button,change_player_two_name_button,positions,tile_board_position,game_decision,
+    return{all_tiles,header_para,close_change_name_one_form_button,close_change_name_one_form_button,change_player_one_name_modal,change_player_two_name_modal,
+        change_player_one_name_form,change_player_two_name_form,change_player_one_name_button,change_player_two_name_button,positions,tile_board_position,game_decision,
         translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,get_winning_positions_display,display_winning_positions,handle_events};
 })();
 // console.log(gameboard_controller.active_gamemode);
@@ -522,11 +560,11 @@ const game_display = (() => {
 // game_display.positions[0].innerText = "test";
 // console.log(game_display.get_positions());
 // console.log(game_display.all_tiles);
+const player_one =  player("Test",'x');
+const player_two =  player("Test2",'o');
 if (localStorage.getItem("chosen_gamemode") != null)
     gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
 else
     gameboard_controller.active_gamemode = 0;
 game_display.generate_display(9);
 game_display.handle_events();
-const player_one =  player("Test",'x');
-const player_two =  player("Test2",'o');
