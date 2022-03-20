@@ -77,17 +77,18 @@ a:-webkit-any-link {
     font-size:28px;
     border-radius:0.8em;
     border-color:black;
+    z-index:1;
 }
 .positions > button:hover{
     background-color:green;
 }
 .header_para{
     top:0;
-    left:42%;
+    left:40%;
     display:flex;
     justify-content: center;
     align-items:center;
-    margin-left:2em;
+    margin-left:1em;
     font-size:2.3em;
     text-align:center;
 }
@@ -100,6 +101,7 @@ a:-webkit-any-link {
     height:auto;
     font-size:1.1em;
     border-color:black;
+    z-index:1;
 }
 .reset_button:hover{
     color:rgb(255, 102, 0);
@@ -109,11 +111,14 @@ a:-webkit-any-link {
     display:flex;
     justify-content: center;
     align-items: center;
-    top:25%;
+    margin-top:5em;
     padding:1.1em;
-    height:auto;
     font-size:1.1em;
-    width:15%;
+    max-width:22%;
+    min-width: 15%;
+    max-height:15%;
+    overflow:hidden;
+    z-index:1;
 }
 .change_player_one_name_button:hover{
     background-color:lightslategray;
@@ -139,8 +144,9 @@ a:-webkit-any-link {
 } 
 .go_back_button{
     width: auto;
+    position:absolute;
     margin-left:3%;
-    margin-top: 1em;
+    margin-top: -2em;
     padding:1.1em;
     border-radius:1em;
     background-color: gray;
@@ -149,28 +155,36 @@ a:-webkit-any-link {
 .go_back_button:hover{
     background-color: orange;
 }
-.go_back_button::after {
-    -webkit-transform: translateX(4px);
-    -moz-transform: translateX(4px);
-    -ms-transform: translateX(4px);
-    -o-transform: translateX(4px);
-    transform: translateX(4px);
-}
-/* .change_player_one_modal,.change_player_two_modal{
-    background-color:rgba(0, 0, 0, 0.4);
+.change_player_one_modal,.change_player_two_modal{
+    background-color:rgba(0, 0, 0, 0.5);
     min-width:100%;
     min-height:100%;
-    z-index:-1;
+    z-index:1;
+    display:none;
 }
 #change_player_one_form,#change_player_two_form{
-    text-align:center;
+    text-align: center;
     font-size: 1em;
-    padding:12px;
+    padding:1em;
+    display:flex;
+    flex-direction: column;
+    min-width:12%;
+    gap:4px;
+    height:20%;
     position:fixed;
     top:35%;
-    left:50%;
+    left:49%;
     margin-left:-115px;
     margin-right:0;
-    background-color: white;
-    z-index:-1;
-} */
+    background-color: rgb(219, 216, 216);
+    z-index:1;
+}
+.change_player_one_legend,.change_player_two_legend{
+    text-align: center;
+}
+.form_buttons{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:4px;
+}

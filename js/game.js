@@ -1,17 +1,15 @@
-const player = (player_name,shape,wins = 0,loses = 0,draws = 0,cpu_current_play_position = []) => {
-    const set_name = (name) => player_name = name;
+const player = (shape,wins = 0,loses = 0,draws = 0,cpu_current_play_position = []) => {
     const set_shape = (player_shape) => shape = player_shape;
     const set_wins = (player_wins) => wins = player_wins;
     const set_loses = (player_loses) => loses = player_loses;
     const set_draws = (player_draws) => draws = player_draws;
     const set_cpu_current_play_position = (cpu_position) => cpu_current_play_position = cpu_position;
-    const get_name = () => player_name;
     const get_shape = () => shape;
     const get_wins = () => wins;
     const get_loses = () => loses;
     const get_draws = () => draws;
     const get_cpu_current_play_position = () => cpu_current_play_position;
-    return {set_name,set_shape,set_wins,set_loses,set_draws,set_cpu_current_play_position,get_name,get_shape,get_wins,get_loses,get_draws,get_cpu_current_play_position };
+    return {set_shape,set_wins,set_loses,set_draws,set_cpu_current_play_position,get_shape,get_wins,get_loses,get_draws,get_cpu_current_play_position };
   };
 const gameboard_controller = (() => {
     const draw = "Draw";
@@ -290,11 +288,17 @@ const game_display = (() => {
     // 10 11 12
     // 20 21 22 
     let all_tiles = [];
-    let header_para = "";
+    let header_para;
     let reset_button;
     let go_back_button;
-    let change_player_one_name_button;
-    let change_player_two_name_button;
+    const close_change_name_one_form_button = document.querySelector('#close_change_name_one_form_button');
+    const close_change_name_two_form_button = document.querySelector('#close_change_name_two_form_button');
+    const change_player_one_name_modal = document.querySelector('.change_player_one_modal');
+    const change_player_two_name_modal = document.querySelector('.change_player_two_modal'); 
+    const change_player_one_name_form = document.querySelector('#change_player_one_form'); 
+    const change_player_two_name_form = document.querySelector('#change_player_two_form');  
+    let change_player_one_name_button = document.createElement('button');
+    let change_player_two_name_button = document.createElement('button');
     const positions = document.querySelector(".positions");
     let tile_board_position;
     let game_decision = gameboard_controller.no_winner_yet;
@@ -345,8 +349,6 @@ const game_display = (() => {
         go_back_button = document.createElement('button');
         go_back_button.classList.add('go_back_button');
         go_back_button.innerText = "Go Back";
-        change_player_one_name_button = document.createElement('button');
-        change_player_two_name_button = document.createElement('button');
         change_player_one_name_button.classList.add("change_player_one_name_button");
         change_player_two_name_button.classList.add("change_player_two_name_button");
         change_player_one_name_button.innerText = "Player One";
@@ -431,6 +433,8 @@ const game_display = (() => {
         }
     }
     const handle_events = () => {
+        if ( window.history.replaceState ) 
+            window.history.replaceState( null, null, window.location.href );
         all_tiles.forEach(tile => tile.addEventListener('click',function(){
                 if (tile.innerText == player_one.get_shape() || tile.innerText == player_two.get_shape() || game_decision != gameboard_controller.no_winner_yet)
                     return;
@@ -475,58 +479,126 @@ const game_display = (() => {
                 }
             }
         }));
-        reset_button.addEventListener("click",function(){
-            gameboard_controller.reset_board();
-            while (positions.firstChild)
-                positions.removeChild(positions.lastChild);
-            all_tiles = [];
-            for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
-                const btn = document.createElement("button");
-                btn.classList.add("btn");
-                btn.innerText = "";
-                positions.appendChild(btn);
-                all_tiles.push(btn);
-           }
-           game_decision = gameboard_controller.no_winner_yet;
-           switch (gameboard_controller.active_gamemode){
-            case 0:
-                header_para.innerText = "Player vs Player Mode";
-                break;
-            case 1:
-                header_para.innerText = "Normal CPU Mode";
-                break;
-            case 2:
-                header_para.innerText = "Hard CPU Mode";
-                break;
-            case 3:
-                header_para.innerText = "Unbeatable CPU mode";
-                break;           
-        }
-           handle_events();
-        });
         change_player_one_name_button.addEventListener("click",function(){
-            
+            change_player_one_name_modal.style.display = "flex";
+            reset_button.style.zIndex = "-1";
+            all_tiles.forEach(tile => tile.style.zIndex = "-1");
+            change_player_one_name_button.style.zIndex = "-1";
+            change_player_two_name_button.style.zIndex = "-1";
+            header_para.style.zIndex = "1";
         });
         change_player_two_name_button.addEventListener("click",function(){
-
+            change_player_two_name_modal.style.display = "flex";
+            reset_button.style.zIndex = "-1";
+            all_tiles.forEach(tile => tile.style.zIndex = "-1");
+            change_player_one_name_button.style.zIndex = "-1";
+            change_player_two_name_button.style.zIndex = "-1";
+            header_para.style.zIndex = "1";
+        });
+        close_change_name_one_form_button.addEventListener('click',function(){
+            change_player_one_name_modal.style.display = "none";
+            reset_button.style.zIndex = "1";
+            all_tiles.forEach(tile => tile.style.zIndex = "1");
+            change_player_one_name_button.style.zIndex = "1";
+            change_player_two_name_button.style.zIndex = "1";
+        });
+        //closing form two didnt work until I made a dedicated button for it
+        close_change_name_two_form_button.addEventListener('click',function(){
+            change_player_two_name_modal.style.display = "none";
+            reset_button.style.zIndex = "1";
+            all_tiles.forEach(tile => tile.style.zIndex = "1");
+            change_player_one_name_button.style.zIndex = "1";
+            change_player_two_name_button.style.zIndex = "1";
         });
         go_back_button.addEventListener("click",function(){
             location.href = 'index.html';
         });
     }
-    return{all_tiles,header_para,change_player_one_name_button,change_player_two_name_button,positions,tile_board_position,game_decision,
-        translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,get_cpu_move,play_cpu_move,get_winning_positions_display,display_winning_positions,handle_events};
+    const handle_other_events = () => {
+    reset_button.addEventListener("click",function(){
+        gameboard_controller.reset_board();
+        while (positions.firstChild)
+            positions.removeChild(positions.lastChild);
+        all_tiles = [];
+        for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
+            const btn = document.createElement("button");
+            btn.classList.add("btn");
+            btn.innerText = "";
+            positions.appendChild(btn);
+            all_tiles.push(btn);
+       }
+       game_decision = gameboard_controller.no_winner_yet;
+       switch (gameboard_controller.active_gamemode){
+        case 0:
+            header_para.innerText = "Player vs Player Mode";
+            break;
+        case 1:
+            header_para.innerText = "Normal CPU Mode";
+            break;
+        case 2:
+            header_para.innerText = "Hard CPU Mode";
+            break;
+        case 3:
+            header_para.innerText = "Unbeatable CPU mode";
+            break;           
+    }
+       handle_events();
+    });
+    change_player_one_name_form && change_player_one_name_form.addEventListener('submit',function(e){
+        e.preventDefault();
+        change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
+        localStorage.setItem("player_one_name",JSON.stringify(change_player_one_name_button.innerText));
+        close_form();
+    });
+    change_player_two_name_form && change_player_two_name_form.addEventListener('submit',function(e){
+        e.preventDefault();
+        change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
+        localStorage.setItem("player_two_name",JSON.stringify(change_player_two_name_button.innerText));
+        close_form();
+    });
+    }
+    const close_form = () => {
+        if (change_player_one_name_modal.style.display == "flex")
+            change_player_one_name_modal.style.display = "none";
+        else
+            change_player_two_name_modal.style.display = "none";
+        reset_button.style.zIndex = "1";
+        all_tiles.forEach(tile => tile.style.zIndex = "1");
+        change_player_one_name_button.style.zIndex = "1";
+        change_player_two_name_button.style.zIndex = "1";
+        header_para.style.zIndex = "1";
+    }
+    const get_localstorage_data = () => {
+    if (localStorage.getItem("chosen_gamemode") != null)
+        gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
+    else
+        gameboard_controller.active_gamemode = 0;
+        let localstorage_player_one_name;
+        let localstorage_player_two_name;
+        if (localStorage.getItem("player_one_name") != null)
+            localstorage_player_one_name = JSON.parse(localStorage.getItem("player_one_name"));
+        else
+            localstorage_player_one_name = "Player One"
+        if (localStorage.getItem("player_two_name") != null)
+            localstorage_player_two_name = JSON.parse(localStorage.getItem("player_two_name"));
+        else
+            localstorage_player_two_name = "Player Two";
+        change_player_one_name_button.innerText = localstorage_player_one_name;
+        change_player_two_name_button.innerText = localstorage_player_two_name;
+    }
+    return{all_tiles,header_para,close_change_name_one_form_button,close_change_name_one_form_button,change_player_one_name_modal,change_player_two_name_modal,
+        change_player_one_name_form,change_player_two_name_form,change_player_one_name_button,change_player_two_name_button,positions,tile_board_position,game_decision,
+        translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,
+        get_cpu_move,play_cpu_move,get_winning_positions_display,display_winning_positions,handle_other_events,handle_events,close_form,get_localstorage_data};
 })();
 // console.log(gameboard_controller.active_gamemode);
 // game_display.positions[0].innerText = "3";
 // game_display.positions[0].innerText = "test";
 // console.log(game_display.get_positions());
 // console.log(game_display.all_tiles);
-if (localStorage.getItem("chosen_gamemode") != null)
-    gameboard_controller.active_gamemode = JSON.parse(localStorage.getItem("chosen_gamemode"));
-else
-    gameboard_controller.active_gamemode = 0;
+const player_one =  player('x');
+const player_two =  player('o');
+game_display.get_localstorage_data();
 game_display.generate_display(9);
 game_display.handle_events();
-const player_one =  player("Test",'x');
-const player_two =  player("Test2",'o');
+game_display.handle_other_events();
