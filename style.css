@@ -111,11 +111,12 @@ a:-webkit-any-link {
     display:flex;
     justify-content: center;
     align-items: center;
-    top:25%;
+    margin-top:5em;
     padding:1.1em;
-    height:auto;
     font-size:1.1em;
-    width:15%;
+    max-width:22%;
+    min-width: 15%;
+    max-height:15%;
     overflow:hidden;
     z-index:1;
 }
