@@ -544,20 +544,18 @@ const game_display = (() => {
         e.preventDefault();
         if (change_player_one_name_form.elements[0].value == "")
             change_player_one_name_button.innerText = "Player One";
-        else{
+        else
             change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
-            localStorage.setItem("player_one_name",JSON.stringify(change_player_one_name_button.innerText));
-        }
+        localStorage.setItem("player_one_name",JSON.stringify(change_player_one_name_button.innerText));
         close_form();
     });
     change_player_two_name_form && change_player_two_name_form.addEventListener('submit',function(e){
         e.preventDefault();
         if (change_player_two_name_form.elements[0].value == "")
             change_player_two_name_button.innerText = "Player Two";
-        else{
+        else
             change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
-            localStorage.setItem("player_two_name",JSON.stringify(change_player_two_name_button.innerText));
-        }
+        localStorage.setItem("player_two_name",JSON.stringify(change_player_two_name_button.innerText));
         close_form();
     });
     }
