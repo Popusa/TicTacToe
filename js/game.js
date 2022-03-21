@@ -349,8 +349,6 @@ const game_display = (() => {
         go_back_button.innerText = "Go Back";
         change_player_one_name_button.classList.add("change_player_one_name_button");
         change_player_two_name_button.classList.add("change_player_two_name_button");
-        change_player_one_name_button.innerText = "Player One";
-        change_player_two_name_button.innerText = "Player Two";
         switch (gameboard_controller.active_gamemode){
             case 0:
                 header_para.innerText = "Player vs Player Mode";
@@ -544,14 +542,22 @@ const game_display = (() => {
     });
     change_player_one_name_form && change_player_one_name_form.addEventListener('submit',function(e){
         e.preventDefault();
-        change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
-        localStorage.setItem("player_one_name",JSON.stringify(change_player_one_name_button.innerText));
+        if (change_player_one_name_form.elements[0].value == "")
+            change_player_one_name_button.innerText = "Player One";
+        else{
+            change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
+            localStorage.setItem("player_one_name",JSON.stringify(change_player_one_name_button.innerText));
+        }
         close_form();
     });
     change_player_two_name_form && change_player_two_name_form.addEventListener('submit',function(e){
         e.preventDefault();
-        change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
-        localStorage.setItem("player_two_name",JSON.stringify(change_player_two_name_button.innerText));
+        if (change_player_two_name_form.elements[0].value == "")
+            change_player_two_name_button.innerText = "Player Two";
+        else{
+            change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
+            localStorage.setItem("player_two_name",JSON.stringify(change_player_two_name_button.innerText));
+        }
         close_form();
     });
     }
