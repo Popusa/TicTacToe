@@ -14,15 +14,12 @@ const player = (shape,wins = 0,loses = 0,draws = 0,cpu_current_play_position = [
 const gameboard_controller = (() => {
     const draw = "Draw";
     const no_winner_yet = "NWY";
+    const board_size = 3;
     let active_gamemode;
     let winning_positions;
     let player_one_turn = true;
     let player_two_turn = false;
-    let board = [
-    ['','',''],
-    ['','',''],
-    ['','',''],
-    ];
+    let board = Array.from(Array(board_size), () => new Array(board_size));
     const map_status_to_score = (status) => {
         if (status == player_one.get_shape())
             return -10;
@@ -35,7 +32,7 @@ const gameboard_controller = (() => {
     const update_board = (row,col,shape) => gameboard_controller.board[row][col] = shape;
     const check_win_condition = (shape1,shape2) => {
         //ROWS
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < board_size; i++){
             if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != '')
                 if (board[i][0] == shape1){
                     gameboard_controller.winning_positions = [[i,0],[i,1],[i,2]];
@@ -47,7 +44,7 @@ const gameboard_controller = (() => {
                  }
         }
         //COLUMNS
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < board_size; i++){
             if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != '')
                 if (board[0][i] == shape1){
                     gameboard_controller.winning_positions = [[0,i],[1,i],[2,i]];
@@ -82,8 +79,8 @@ const gameboard_controller = (() => {
                 //DRAW CHECKING
         else{
                     let temp_counter = 0;
-                    for (let i = 0; i < 3; i++){
-                        for (let j = 0; j < 3; j++){
+                    for (let i = 0; i < board_size; i++){
+                        for (let j = 0; j < board_size; j++){
                             if (board[i][j] == shape1 || board[i][j] == shape2)
                                 temp_counter++;
                             else
@@ -96,19 +93,19 @@ const gameboard_controller = (() => {
                         return no_winner_yet;
                 }
         }
-    const reset_board = () => {
-        for (let i = 0; i < 3; i++){
-            for (let j = 0; j < 3; j++){
+    const generate_new_board = () => {
+        for (let i = 0; i < board_size; i++){
+            for (let j = 0; j < board_size; j++){
                 board[i][j] = '';
             }
         }
     }
     const get_random_move = () => {
-        let row = Math.floor(Math.random() * 3);
-        let col = Math.floor(Math.random() * 3);
+        let row = Math.floor(Math.random() * board_size);
+        let col = Math.floor(Math.random() * board_size);
         while (board[row][col] == player_one.get_shape() || board[row][col] == player_two.get_shape()){
-            row = Math.floor(Math.random() * 3);
-            col = Math.floor(Math.random() * 3);
+            row = Math.floor(Math.random() * board_size);
+            col = Math.floor(Math.random() * board_size);
         }
         return [row,col];
     }
@@ -207,8 +204,8 @@ const gameboard_controller = (() => {
         }
         if (maximizing_player) {
           let best_score = -Infinity;
-          for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+          for (let i = 0; i < board_size; i++) {
+            for (let j = 0; j < board_size; j++) {
               // Is the spot available?
               if (board[i][j] == '') {
                 board[i][j] = player_two.get_shape();
@@ -222,8 +219,8 @@ const gameboard_controller = (() => {
         } 
         else {
           let best_score = Infinity;
-          for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+          for (let i = 0; i < board_size; i++) {
+            for (let j = 0; j < board_size; j++) {
               // Is the spot available?
               if (board[i][j] == '') {
                 board[i][j] = player_one.get_shape();
@@ -240,8 +237,8 @@ const gameboard_controller = (() => {
         // AI to make its turn
         let best_score = -Infinity;
         let best_move;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < board_size; i++) {
+            for (let j = 0; j < board_size; j++) {
                 // Is the spot available?
                 if (board[i][j] == '') {
                     board[i][j] = player_two.get_shape();
@@ -275,7 +272,7 @@ const gameboard_controller = (() => {
             player_two_turn = false;
         }
     }
-    return{draw,no_winner_yet,winning_positions,board,player_one_turn,player_two_turn,map_status_to_score,get_board,update_board,check_win_condition,reset_board,
+    return{draw,no_winner_yet,winning_positions,board,board_size,player_one_turn,player_two_turn,map_status_to_score,get_board,update_board,check_win_condition,generate_new_board,
         get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,minimax,generate_unbeatable_cpu_move,check_turn,change_turn};
 })();
 const game_display = (() => {
@@ -306,11 +303,11 @@ const game_display = (() => {
         if (isNaN(position))
             return NaN;
         let row,col;
-        if (position <= 3){
+        if (position <= gameboard_controller.board_size){
             row = 0;
             col = position - 1;
         }
-        else if (position <= 6){
+        else if (position <= gameboard_controller.board_size * 2){
             row = 1;
             col = position - 4;
         }
@@ -327,14 +324,15 @@ const game_display = (() => {
         if (row == 0)
             tile_position = row + col + 1;
         else if (row == 1)
-            tile_position = row + col + 3;
+            tile_position = row + col + gameboard_controller.board_size;
         else
-            tile_position = row + col + 5;
+            tile_position = row + col + (gameboard_controller.board_size * 2) - 1;
         return tile_position;
         }
     const get_positions = () => positions;
-    const generate_display = (num_of_btns) => {
-     for (let i = 0; i < num_of_btns; i++){
+    const generate_display = () => {
+        gameboard_controller.generate_new_board(gameboard_controller.board_size);
+        for (let i = 0; i < gameboard_controller.board_size * gameboard_controller.board_size; i++){
              const btn = document.createElement("button");
              btn.classList.add("btn");
              btn.innerText = "";
@@ -351,8 +349,6 @@ const game_display = (() => {
         go_back_button.innerText = "Go Back";
         change_player_one_name_button.classList.add("change_player_one_name_button");
         change_player_two_name_button.classList.add("change_player_two_name_button");
-        change_player_one_name_button.innerText = "Player One";
-        change_player_two_name_button.innerText = "Player Two";
         switch (gameboard_controller.active_gamemode){
             case 0:
                 header_para.innerText = "Player vs Player Mode";
@@ -411,7 +407,7 @@ const game_display = (() => {
         let tile_list = [];
         let row;
         let col;
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < gameboard_controller.board_size; i++){
             let temp = winning_positions[i];
             row = temp[0];
             col = temp[1];
@@ -421,7 +417,7 @@ const game_display = (() => {
     }
     const display_winning_positions = (winning_positions_tile) => {
         //console.log(winning_positions_tile);
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < gameboard_controller.board_size; i++){
             if (game_decision == player_one.get_shape()) {
                 all_tiles[winning_positions_tile[i] - 1].style.backgroundColor = "#00FF00";
                 all_tiles[winning_positions_tile[i] - 1].style.color = "#000000";
@@ -515,45 +511,53 @@ const game_display = (() => {
         });
     }
     const handle_other_events = () => {
-    reset_button.addEventListener("click",function(){
-        gameboard_controller.reset_board();
-        while (positions.firstChild)
-            positions.removeChild(positions.lastChild);
-        all_tiles = [];
-        for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
-            const btn = document.createElement("button");
-            btn.classList.add("btn");
-            btn.innerText = "";
-            positions.appendChild(btn);
-            all_tiles.push(btn);
-       }
-       game_decision = gameboard_controller.no_winner_yet;
-       switch (gameboard_controller.active_gamemode){
-        case 0:
-            header_para.innerText = "Player vs Player Mode";
-            break;
-        case 1:
-            header_para.innerText = "Normal CPU Mode";
-            break;
-        case 2:
-            header_para.innerText = "Hard CPU Mode";
-            break;
-        case 3:
-            header_para.innerText = "Unbeatable CPU mode";
-            break;           
-    }
-       handle_events();
+        reset_button.addEventListener("click",function(){
+            gameboard_controller.generate_new_board(gameboard_controller.board_size);
+            while (positions.firstChild)
+                positions.removeChild(positions.lastChild);
+            all_tiles = [];
+            for (let i = 0; i < gameboard_controller.board.length * gameboard_controller.board.length; i++){
+                const btn = document.createElement("button");
+                btn.classList.add("btn");
+                btn.innerText = "";
+                positions.appendChild(btn);
+                all_tiles.push(btn);
+            }
+            switch (gameboard_controller.active_gamemode){
+                case 0:
+                    header_para.innerText = "Player vs Player Mode";
+                    break;
+                case 1:
+                    header_para.innerText = "Normal CPU Mode";
+                    break;
+                case 2:
+                    header_para.innerText = "Hard CPU Mode";
+                    break;
+                case 3:
+                    header_para.innerText = "Unbeatable CPU mode";
+                    break;           
+            }
+            game_decision = gameboard_controller.no_winner_yet;
+            handle_events();
     });
     change_player_one_name_form && change_player_one_name_form.addEventListener('submit',function(e){
         e.preventDefault();
-        change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
-        localStorage.setItem("player_one_name",JSON.stringify(change_player_one_name_button.innerText));
+        if (change_player_one_name_form.elements[0].value == "")
+            change_player_one_name_button.innerText = "Player One";
+        else{
+            change_player_one_name_button.innerText = change_player_one_name_form.elements[0].value;
+            localStorage.setItem("player_one_name",JSON.stringify(change_player_one_name_button.innerText));
+        }
         close_form();
     });
     change_player_two_name_form && change_player_two_name_form.addEventListener('submit',function(e){
         e.preventDefault();
-        change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
-        localStorage.setItem("player_two_name",JSON.stringify(change_player_two_name_button.innerText));
+        if (change_player_two_name_form.elements[0].value == "")
+            change_player_two_name_button.innerText = "Player Two";
+        else{
+            change_player_two_name_button.innerText = change_player_two_name_form.elements[0].value;
+            localStorage.setItem("player_two_name",JSON.stringify(change_player_two_name_button.innerText));
+        }
         close_form();
     });
     }
@@ -591,14 +595,9 @@ const game_display = (() => {
         translate_positions_to_rowcol,translate_positions_to_tile,get_positions,generate_display,update_tile,
         get_cpu_move,play_cpu_move,get_winning_positions_display,display_winning_positions,handle_other_events,handle_events,close_form,get_localstorage_data};
 })();
-// console.log(gameboard_controller.active_gamemode);
-// game_display.positions[0].innerText = "3";
-// game_display.positions[0].innerText = "test";
-// console.log(game_display.get_positions());
-// console.log(game_display.all_tiles);
 const player_one =  player('x');
 const player_two =  player('o');
 game_display.get_localstorage_data();
-game_display.generate_display(9);
+game_display.generate_display();
 game_display.handle_events();
 game_display.handle_other_events();
