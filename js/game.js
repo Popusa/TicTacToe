@@ -19,7 +19,7 @@ const gameboard_controller = (() => {
     let winning_positions;
     let player_one_turn = true;
     let player_two_turn = false;
-    let board = [[],[],[]];
+    let board = Array.from(Array(board_size), () => new Array(board_size));
     const map_status_to_score = (status) => {
         if (status == player_one.get_shape())
             return -10;
