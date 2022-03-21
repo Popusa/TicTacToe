@@ -129,6 +129,7 @@ a:-webkit-any-link {
 .change_player_one_name_button{
     position:fixed;
     left:35%;
+    margin-right:30px;
     background-color: black;
     border-color: white;
     color:white;
