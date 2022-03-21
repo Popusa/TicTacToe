@@ -18,4 +18,4 @@ Third: An unbeatable CPU made using the minimax algorithm that cannot lose no ma
 
 This project will teach me more and more about web development and algorithms and I am very excited to take another step forward in my web development journey.
 
-The link for the live version: will put here when I finish the project.
+The link for the live version: https://popusa.github.io/tic-tac-toe/
