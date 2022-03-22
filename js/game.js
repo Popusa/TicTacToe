@@ -28,12 +28,15 @@ const gameboard_controller = (() => {
         else
             return 0;
     }
+    const check_wincon_positions = (pos_one,pos_two,pos_three) => {
+        return pos_one == pos_two && pos_two == pos_three && pos_one != ''
+    }
     const get_board = () => board;
     const update_board = (row,col,shape) => gameboard_controller.board[row][col] = shape;
     const check_win_condition = (shape1,shape2) => {
         //ROWS
         for (let i = 0; i < board_size; i++){
-            if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != '')
+            if (check_wincon_positions(board[i][0],board[i][1],board[i][2]))
                 if (board[i][0] == shape1){
                     gameboard_controller.winning_positions = [[i,0],[i,1],[i,2]];
                     return shape1;
@@ -45,7 +48,7 @@ const gameboard_controller = (() => {
         }
         //COLUMNS
         for (let i = 0; i < board_size; i++){
-            if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != '')
+            if (check_wincon_positions(board[0][i],board[1][i],board[2][i]))
                 if (board[0][i] == shape1){
                     gameboard_controller.winning_positions = [[0,i],[1,i],[2,i]];
                     return shape1;
@@ -56,7 +59,7 @@ const gameboard_controller = (() => {
                 }
         }
         //DIAGONALS
-        if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ''){
+        if (check_wincon_positions(board[0][0],board[1][1],board[2][2])){
                     if (board[0][0] == shape1){
                         gameboard_controller.winning_positions = [[0,0],[1,1],[2,2]];
                         return shape1;
@@ -66,7 +69,7 @@ const gameboard_controller = (() => {
                         return shape2;
                     }
                 }
-        else if (board[0][2] == board[1][1] && board[1][1] == board[2][0]  && board[0][2] != ''){
+        else if (check_wincon_positions(board[0][2],board[1][1],board[2][0])){
                     if (board[0][2] == shape1){
                         gameboard_controller.winning_positions = [[0,2],[1,1],[2,0]];
                         return shape1;
@@ -272,7 +275,7 @@ const gameboard_controller = (() => {
             player_two_turn = false;
         }
     }
-    return{draw,no_winner_yet,winning_positions,board,board_size,player_one_turn,player_two_turn,map_status_to_score,get_board,update_board,check_win_condition,generate_new_board,
+    return{draw,no_winner_yet,winning_positions,board,board_size,player_one_turn,player_two_turn,map_status_to_score,check_wincon_positions,get_board,update_board,check_win_condition,generate_new_board,
         get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,minimax,generate_unbeatable_cpu_move,check_turn,change_turn};
 })();
 const game_display = (() => {
