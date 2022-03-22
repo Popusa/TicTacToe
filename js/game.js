@@ -116,85 +116,62 @@ const gameboard_controller = (() => {
         let random_move = get_random_move();
         return random_move;    
     }
+    const check_hard_winning_move = (pos_one,pos_two,pos_three,shape1,shape2) => {
+        return pos_one == shape2 && pos_one == pos_two && pos_three != shape1;
+    }
     const generate_hard_cpu_move = () => {
         let row,col;
         //ROWS
-        if (board[0][0] == player_two.get_shape() && board[0][1] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
+        if (check_hard_winning_move(board[0][0],board[0][1],board[0][2],player_one.get_shape(),player_two.get_shape()))
             return [0,2];
-        }
-        else if (board[0][0] == player_two.get_shape() && board[0][2] == player_two.get_shape() && board[0][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][0],board[0][2],board[0][1],player_one.get_shape(),player_two.get_shape()))
             return [0,1];
-        }
-        else if (board[0][1] == player_two.get_shape() && board[0][2] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][1],board[0][2],board[0][0],player_one.get_shape(),player_two.get_shape()))
             return [0,0];
-        }
-        if (board[1][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[1][2] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[1][0],board[1][1],board[1][2],player_one.get_shape(),player_two.get_shape()))
             return [1,2];
-        }
-        else if (board[1][0] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[1][0],board[1][2],board[1][1],player_one.get_shape(),player_two.get_shape()))
             return [1,1];
-        }
-        else if (board[1][1] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[1][0] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[1][1],board[1][2],board[1][0],player_one.get_shape(),player_two.get_shape()))
             return [1,0];
-        }
-        if (board[2][0] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[2][0],board[2][1],board[2][2],player_one.get_shape(),player_two.get_shape()))
             return [2,2];
-        }
-        else if (board[2][0] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[2][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[2][0],board[2][2],board[2][1],player_one.get_shape(),player_two.get_shape()))
             return [2,1];
-        }
-        else if (board[2][1] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[2][1],board[2][2],board[2][0],player_one.get_shape(),player_two.get_shape()))
             return [2,0];
-        }
         //COLUMNS
-        if (board[0][0] == player_two.get_shape() && board[1][0] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+        if (check_hard_winning_move(board[0][0],board[1][0],board[2][0],player_one.get_shape(),player_two.get_shape()))
             return [2,0];
-        }
-        else if (board[0][0] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[1][0] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][0],board[2][0],board[1][0],player_one.get_shape(),player_two.get_shape()))
             return [1,0];
-        }
-        else if (board[1][0] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[1][0],board[2][0],board[0][0],player_one.get_shape(),player_two.get_shape()))
             return [0,0];
-        }
-        if (board[0][1] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][1],board[1][1],board[2][1],player_one.get_shape(),player_two.get_shape()))
             return [2,1];
-        }
-        else if (board[0][1] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][1],board[2][1],board[1][1],player_one.get_shape(),player_two.get_shape()))
             return [1,1];
-        }
-        else if (board[1][1] == player_two.get_shape() && board[2][1] == player_two.get_shape() && board[0][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[1][1],board[2][1],board[0][1],player_one.get_shape(),player_two.get_shape()))
             return [0,1];
-        }
-        if (board[0][2] == player_two.get_shape() && board[1][2] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][2],board[1][2],board[2][2],player_one.get_shape(),player_two.get_shape()))
             return [2,2];
-        }
-        else if (board[0][2] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[1][2] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][2],board[2][2],board[1][2],player_one.get_shape(),player_two.get_shape()))
             return [1,2];
-        }
-        else if (board[1][2] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
-            return [0,2];
-        }   
+        else if (check_hard_winning_move(board[1][2],board[2][2],board[0][2],player_one.get_shape(),player_two.get_shape()))
+            return [0,2];   
         //DIAGONALS
-        if (board[1][1] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[0][0] != player_one.get_shape()){
+        if (check_hard_winning_move(board[1][1],board[2][2],board[0][0],player_one.get_shape(),player_two.get_shape()))
             return [0,0];
-        }
-        else if (board[0][0] == player_two.get_shape() && board[2][2] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][0],board[2][2],board[1][1],player_one.get_shape(),player_two.get_shape()))
             return [1,1];
-        }
-        else if (board[0][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][2] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][0],board[1][1],board[2][2],player_one.get_shape(),player_two.get_shape()))
             return [2,2];
-        }
-        else if (board[0][2] == player_two.get_shape() && board[2][0] == player_two.get_shape() && board[1][1] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][2],board[2][0],board[1][1],player_one.get_shape(),player_two.get_shape()))
             return [1,1];
-        }
-        else if (board[0][2] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[2][0] != player_one.get_shape()){
+        else if (check_hard_winning_move(board[0][2],board[1][1],board[2][0],player_one.get_shape(),player_two.get_shape()))
             return [2,0];
-        }
-        else if (board[2][0] == player_two.get_shape() && board[1][1] == player_two.get_shape() && board[0][2] != player_one.get_shape()){
-            row = 0;
-            col = 2;
+        else if (check_hard_winning_move(board[2][0],board[1][1],board[0][2],player_one.get_shape(),player_two.get_shape()))
             return [0,2];
-        }
         else{
             let move = get_random_move();
             return move;
@@ -276,7 +253,7 @@ const gameboard_controller = (() => {
         }
     }
     return{draw,no_winner_yet,winning_positions,board,board_size,player_one_turn,player_two_turn,map_status_to_score,check_wincon_positions,get_board,update_board,check_win_condition,generate_new_board,
-        get_random_move,generate_normal_cpu_move,generate_hard_cpu_move,minimax,generate_unbeatable_cpu_move,check_turn,change_turn};
+        get_random_move,generate_normal_cpu_move,check_hard_winning_move,generate_hard_cpu_move,minimax,generate_unbeatable_cpu_move,check_turn,change_turn};
 })();
 const game_display = (() => {
     // 1 2 3 
