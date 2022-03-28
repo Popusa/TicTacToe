@@ -12,7 +12,7 @@ the CPU modes however, will be comprised of three difficulties:
 
 First: a normal difficulty where a CPU will play random moves every turn.
 
-Second: a hard difficulty where a CPU will attempt to win at all costs.
+Second: a hard difficulty where a CPU will attempt to win at every turn it plays However, it has a glaring weakness which is that it cannot defend itself when it is about to lose.
 
 Third: An unbeatable CPU made using the minimax algorithm that cannot lose no matter what and always knows the best (maximizing) position to play everytime. 
 
