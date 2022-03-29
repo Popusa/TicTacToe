@@ -120,45 +120,32 @@ const gameboard_controller = (() => {
         return pos_one == shape2 && pos_one == pos_two && pos_three != shape1;
     }
     const generate_hard_cpu_move = () => {
-        let row,col;
         //ROWS
-        if (check_hard_winning_move(board[0][0],board[0][1],board[0][2],player_one.get_shape(),player_two.get_shape()))
-            return [0,2];
-        else if (check_hard_winning_move(board[0][0],board[0][2],board[0][1],player_one.get_shape(),player_two.get_shape()))
-            return [0,1];
-        else if (check_hard_winning_move(board[0][1],board[0][2],board[0][0],player_one.get_shape(),player_two.get_shape()))
-            return [0,0];
-        else if (check_hard_winning_move(board[1][0],board[1][1],board[1][2],player_one.get_shape(),player_two.get_shape()))
-            return [1,2];
-        else if (check_hard_winning_move(board[1][0],board[1][2],board[1][1],player_one.get_shape(),player_two.get_shape()))
-            return [1,1];
-        else if (check_hard_winning_move(board[1][1],board[1][2],board[1][0],player_one.get_shape(),player_two.get_shape()))
-            return [1,0];
-        else if (check_hard_winning_move(board[2][0],board[2][1],board[2][2],player_one.get_shape(),player_two.get_shape()))
-            return [2,2];
-        else if (check_hard_winning_move(board[2][0],board[2][2],board[2][1],player_one.get_shape(),player_two.get_shape()))
-            return [2,1];
-        else if (check_hard_winning_move(board[2][1],board[2][2],board[2][0],player_one.get_shape(),player_two.get_shape()))
-            return [2,0];
+        //FIRST COLUMN
+        for (let i = 0; i < board_size; i++)
+            if (check_hard_winning_move(board[i][0],board[i][1],board[i][2],player_one.get_shape(),player_two.get_shape()))
+                return [i,2];
+        //SECOND COLUMN
+        for (let i = 0; i < board_size; i++)
+            if (check_hard_winning_move(board[i][0],board[i][2],board[i][1],player_one.get_shape(),player_two.get_shape()))
+                return [i,1];
+        //THIRD COLUMN
+        for (let i = 0; i < board_size; i++)
+            if (check_hard_winning_move(board[i][1],board[i][2],board[i][0],player_one.get_shape(),player_two.get_shape()))
+                return [i,0];
         //COLUMNS
-        if (check_hard_winning_move(board[0][0],board[1][0],board[2][0],player_one.get_shape(),player_two.get_shape()))
-            return [2,0];
-        else if (check_hard_winning_move(board[0][0],board[2][0],board[1][0],player_one.get_shape(),player_two.get_shape()))
-            return [1,0];
-        else if (check_hard_winning_move(board[1][0],board[2][0],board[0][0],player_one.get_shape(),player_two.get_shape()))
-            return [0,0];
-        else if (check_hard_winning_move(board[0][1],board[1][1],board[2][1],player_one.get_shape(),player_two.get_shape()))
-            return [2,1];
-        else if (check_hard_winning_move(board[0][1],board[2][1],board[1][1],player_one.get_shape(),player_two.get_shape()))
-            return [1,1];
-        else if (check_hard_winning_move(board[1][1],board[2][1],board[0][1],player_one.get_shape(),player_two.get_shape()))
-            return [0,1];
-        else if (check_hard_winning_move(board[0][2],board[1][2],board[2][2],player_one.get_shape(),player_two.get_shape()))
-            return [2,2];
-        else if (check_hard_winning_move(board[0][2],board[2][2],board[1][2],player_one.get_shape(),player_two.get_shape()))
-            return [1,2];
-        else if (check_hard_winning_move(board[1][2],board[2][2],board[0][2],player_one.get_shape(),player_two.get_shape()))
-            return [0,2];   
+        //FIRST ROW
+        for (let i = 0; i < board_size; i++)
+            if (check_hard_winning_move(board[0][i],board[1][i],board[2][i],player_one.get_shape(),player_two.get_shape()))
+                return [2,i];
+        //SECOND ROW
+        for (let i = 0; i < board_size; i++)
+            if (check_hard_winning_move(board[0][i],board[2][i],board[1][i],player_one.get_shape(),player_two.get_shape()))
+                return [1,i];
+        //THIRD ROW
+        for (let i = 0; i < board_size; i++)
+            if (check_hard_winning_move(board[1][i],board[2][i],board[0][i],player_one.get_shape(),player_two.get_shape()))
+                return [0,i];
         //DIAGONALS
         if (check_hard_winning_move(board[1][1],board[2][2],board[0][0],player_one.get_shape(),player_two.get_shape()))
             return [0,0];
