@@ -1,4 +1,5 @@
-const main_menu = (() => { 
+const main_menu = (() => {
+    let h1_header = document.createElement('h1');
     const pvp_button = document.createElement('button');
     const pvcpu_normal_button = document.createElement('button');
     const pvcpu_hard_button = document.createElement('button');
@@ -6,8 +7,10 @@ const main_menu = (() => {
     const start_button = document.createElement('button');
     const all_gamemode_buttons = [pvp_button, pvcpu_normal_button, pvcpu_hard_button, pvcpu_unbeatable_button];
     const chosen_gamemode = [false,false,false,false];
-    const generate_main_menu_buttons = () => {
+    const generate_main_menu_elements = () => {
         const main_menu_div = document.querySelector('.main_menu');
+        h1_header.innerText = "Tic Tac Toe";
+        main_menu_div.appendChild(h1_header);
         pvp_button.classList.add("pvp_button");
         pvp_button.innerText = "PLAYER VS PLAYER";
         pvcpu_normal_button.classList.add("pvcpu_normal_button");
@@ -72,6 +75,6 @@ const main_menu = (() => {
                 chosen_gamemode[i] = false;
         }    
     }
-    return{generate_main_menu_buttons,handle_main_menu_events,set_chosen_gamemode,reset_unchosen_gamemode_values};
+    return{generate_main_menu_elements,handle_main_menu_events,set_chosen_gamemode,reset_unchosen_gamemode_values};
 })();
-main_menu.generate_main_menu_buttons();
+main_menu.generate_main_menu_elements();

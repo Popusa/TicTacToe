@@ -9,7 +9,7 @@ body,html{
 }
 h1{
     font-size: 28px;
-    color: red;
+    color: rgb(0, 0, 255);
 }
 .main_menu{
     text-align:center;
