@@ -336,6 +336,8 @@ const game_display = (() => {
         document.body.appendChild(change_player_one_name_button);
         document.body.appendChild(change_player_two_name_button);
         document.body.appendChild(go_back_button);
+        handle_events();
+        handle_other_events();
     }
     const update_tile = (tile,shape) => {
         if (shape == player_one.get_shape()){
@@ -564,5 +566,3 @@ const game_display = (() => {
 const player_one =  player('x');
 const player_two =  player('o');
 game_display.generate_display();
-game_display.handle_events();
-game_display.handle_other_events();
