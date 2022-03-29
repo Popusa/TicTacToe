@@ -30,14 +30,14 @@ h1{
 }
 .pvp_button:hover{
     background-color:rgb(255, 115, 0);
-    color:black;
+    color:white;
 }
 .pvcpu_normal_button:hover{
-    background-color:rgb(255, 36, 0);
-    color:black;
+    background-color:crimson;
+    color:white;
 }
 .pvcpu_hard_button:hover{
-    background-color:crimson;
+    background-color:rgb(255, 36, 0);
     color:white;
 }
 .pvcpu_unbeatable_button:hover{
@@ -130,7 +130,7 @@ a:-webkit-any-link {
     background-color:lightslategray;
 }
 .change_player_two_name_button:hover{
-    background-color:darkslategray;
+    background-color:lightslategray;
 }
 .change_player_one_name_button{
     position:fixed;
