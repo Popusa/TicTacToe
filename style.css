@@ -152,7 +152,7 @@ a:-webkit-any-link {
     background-color: orange;
 }
 .change_player_one_modal,.change_player_two_modal{
-    background-color:rgba(0, 0, 0, 0.5);
+    background-color:rgba(0, 0, 0, 0.801);
     min-width:100%;
     min-height:100%;
     z-index:1;
