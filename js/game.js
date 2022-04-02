@@ -1,20 +1,14 @@
 //player factory
-const player = (shape,wins = 0,loses = 0,draws = 0,cpu_current_play_position = []) => {
-    //shape and stats, stats are unused and will either be removed or used for a new feature later on
+const player = (shape,cpu_current_play_position = []) => {
+    //shape is interchangeable
     //setters
     const set_shape = (player_shape) => shape = player_shape;
-    const set_wins = (player_wins) => wins = player_wins;
-    const set_loses = (player_loses) => loses = player_loses;
-    const set_draws = (player_draws) => draws = player_draws;
     //this is a cpu-specific var to keep track of its moves
     const set_cpu_current_play_position = (cpu_position) => cpu_current_play_position = cpu_position;
     //getters
     const get_shape = () => shape;
-    const get_wins = () => wins;
-    const get_loses = () => loses;
-    const get_draws = () => draws;
     const get_cpu_current_play_position = () => cpu_current_play_position;
-    return {set_shape,set_wins,set_loses,set_draws,set_cpu_current_play_position,get_shape,get_wins,get_loses,get_draws,get_cpu_current_play_position };
+    return {set_shape,set_cpu_current_play_position,get_shape,get_cpu_current_play_position };
   };
 //gameboard_controller module handles all data manipulation on the board between player and CPU
 const gameboard_controller = (() => {
@@ -536,7 +530,6 @@ const game_display = (() => {
                         return;
                     else{
                         //game decision, either a player or cpu won, or draw
-                        //here would be the stats handling, but only when stats feature is implemented
                         console.log(game_decision);
                         if (game_decision == gameboard_controller.draw){
                             //draw
