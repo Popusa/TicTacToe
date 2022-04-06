@@ -9,14 +9,14 @@ body,html{
 }
 h1{
     font-size: 28px;
-    color: rgb(0, 0, 255);
+    color: black;
 }
 .main_menu{
     text-align:center;
     display:flex;
     flex-direction:column;
     padding:12px;
-    gap:8px;
+    gap:10px;
     position:fixed;
     top: 20%;
     left: 0;
@@ -24,6 +24,13 @@ h1{
     width:20%;
     flex-wrap:wrap;
     margin: -100px auto 0 auto;
+}
+a{
+    margin-left:1em;
+}
+a:hover, a:visited:hover{
+    color: white;
+    text-decoration: none;
 }
 .main_menu > button{
     background-color:beige;

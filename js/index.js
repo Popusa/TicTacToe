@@ -1,7 +1,11 @@
 //main menu module
 const main_menu = (() => {
+    //main menu div
+    const main_menu_div = document.querySelector('.main_menu');
     // all element definitions
     let h1_header = document.createElement('h1');
+    let made_by;
+    let made_by_wrapper = document.createElement('div');
     const pvp_button = document.createElement('button');
     const pvcpu_normal_button = document.createElement('button');
     const pvcpu_hard_button = document.createElement('button');
@@ -9,11 +13,25 @@ const main_menu = (() => {
     const start_button = document.createElement('button');
     const all_gamemode_buttons = [pvp_button, pvcpu_normal_button, pvcpu_hard_button, pvcpu_unbeatable_button];
     const chosen_gamemode = [false,false,false,false];
+    const  create_link = (str,a) => {
+        //create anchor
+        let anchor = document.createElement('a');
+        //create text for link
+        let link = document.createTextNode(str);
+        //add text to anchor
+        anchor.appendChild(link);
+        //add url to anchor
+        anchor.href = a;
+        //add everything to main menu
+        main_menu_div.appendChild(anchor);
+    }
     const generate_main_menu_elements = () => {
         //defining classlists and text
-        const main_menu_div = document.querySelector('.main_menu');
         h1_header.innerText = "Tic Tac Toe";
         main_menu_div.appendChild(h1_header);
+        //generate the made by link and add it to main menu
+        made_by = create_link("Made By Daniel Youssef","https://github.com/Popusa/tic-tac-toe");
+        //defining gamemode buttons
         pvp_button.classList.add("pvp_button");
         pvp_button.innerText = "PLAYER VS PLAYER";
         pvcpu_normal_button.classList.add("pvcpu_normal_button");
@@ -91,7 +109,7 @@ const main_menu = (() => {
                 chosen_gamemode[i] = false;
         }    
     }
-    return{generate_main_menu_elements,handle_main_menu_events,set_chosen_gamemode,reset_unchosen_gamemode_values};
+    return{create_link,generate_main_menu_elements,handle_main_menu_events,set_chosen_gamemode,reset_unchosen_gamemode_values};
 })();
 //this functions calls all the other functions as shown above
 main_menu.generate_main_menu_elements();
