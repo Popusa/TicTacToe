@@ -91,7 +91,7 @@ a:-webkit-any-link {
     display:flex;
     justify-content: center;
     align-items:center;
-    font-size:2.3em;
+    font-size:3em;
     text-align:center;
 }
 .reset_button{
@@ -114,11 +114,10 @@ a:-webkit-any-link {
     justify-content: center;
     align-items: center;
     margin-left:-2em;
-    padding:1.1em;
     font-size:1.1em;
     max-width:22%;
     min-width: 15%;
-    max-height:15%;
+    max-height:10%;
     overflow:hidden;
     z-index:1;
 }
@@ -147,7 +146,7 @@ a:-webkit-any-link {
     width: auto;
     position:absolute;
     margin-left:3%;
-    margin-top: -5em;
+    margin-top: -3.8em;
     padding:1.1em;
     border-radius:1em;
     background-color: gray;
