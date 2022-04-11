@@ -113,10 +113,12 @@ a:-webkit-any-link {
     display:flex;
     justify-content: center;
     align-items: center;
-    margin-left:-2em;
-    font-size:1.1em;
+    margin-left:-1.5em;
+    font-size:1em;
+    top:20%;
     max-width:22%;
     min-width: 15%;
+    margin-top:1.8em;
     max-height:10%;
     overflow:hidden;
     z-index:1;
@@ -129,7 +131,7 @@ a:-webkit-any-link {
 }
 .change_player_one_name_button{
     position:fixed;
-    left:30%;
+    left:32%;
     background-color: black;
     border-color: white;
     color:white;
@@ -147,7 +149,7 @@ a:-webkit-any-link {
     position:absolute;
     margin-left:3%;
     margin-top: -3.8em;
-    padding:1.1em;
+    padding:0.7em;
     border-radius:1em;
     background-color: gray;
     color:white;
