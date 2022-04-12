@@ -40,11 +40,11 @@ a:hover, a:visited:hover{
     color:white;
 }
 .pvcpu_normal_button:hover{
-    background-color:crimson;
+    background-color:rgb(190, 0, 67);
     color:white;
 }
 .pvcpu_hard_button:hover{
-    background-color:rgb(255, 36, 0);
+    background-color: crimson;
     color:white;
 }
 .pvcpu_unbeatable_button:hover{
