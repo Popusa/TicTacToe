@@ -89,6 +89,8 @@ a:-webkit-any-link {
     top:0;
     left:40%;
     display:flex;
+    margin-top:-0.1em;
+    margin-right:0.1em;
     justify-content: center;
     align-items:center;
     font-size:3em;
@@ -98,6 +100,8 @@ a:-webkit-any-link {
     position:absolute;
     top:70%;
     right:25%;
+    margin-top:3.5em;
+    margin-right:0.6em;
     padding:1.1em;
     width:50%;
     height:auto;
@@ -113,12 +117,12 @@ a:-webkit-any-link {
     display:flex;
     justify-content: center;
     align-items: center;
-    margin-left:-1.5em;
+    margin-left:-2.2em;
     font-size:1em;
     top:20%;
     max-width:22%;
     min-width: 15%;
-    margin-top:1.8em;
+    margin-top:0.7em;
     max-height:10%;
     overflow:hidden;
     z-index:1;
