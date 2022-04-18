@@ -22,13 +22,17 @@ const main_menu = (() => {
         anchor.appendChild(link);
         //add url to anchor
         anchor.href = a;
-        //add everything to main menu
-        main_menu_div.appendChild(anchor);
+        //add anchor to wrapper div
+        made_by_wrapper.appendChild(anchor);
+        //add wrapper to main menu
+        main_menu_div.appendChild(made_by_wrapper);
     }
     const generate_main_menu_elements = () => {
         //defining classlists and text
         h1_header.innerText = "Tic Tac Toe";
         main_menu_div.appendChild(h1_header);
+        //made by wrapper class added to be styled by css
+        made_by_wrapper.classList.add("made_by_wrapper");
         //generate the made by link and add it to main menu
         made_by = create_link("Made By Daniel Youssef","https://github.com/Popusa/tic-tac-toe");
         //defining gamemode buttons

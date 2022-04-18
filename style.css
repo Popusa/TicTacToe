@@ -10,6 +10,7 @@ body,html{
 h1{
     font-size: 28px;
     color: black;
+    white-space: nowrap;
 }
 .main_menu{
     text-align:center;
@@ -27,6 +28,10 @@ h1{
 }
 a{
     margin-left:1em;
+}
+.made_by_wrapper{
+    margin-right:1em;
+    font-weight:bold;
 }
 a:hover, a:visited:hover{
     color: white;
