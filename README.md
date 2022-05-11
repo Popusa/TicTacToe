@@ -1,5 +1,6 @@
 ### Tic-Tac-Toe
-![TicTacToe better screenshot](https://user-images.githubusercontent.com/90353446/167965497-20e9de72-1228-4888-9a13-381090f890b6.png)
+![TicTacToe best screenshot](https://user-images.githubusercontent.com/90353446/167965701-cce5e224-d210-4e7e-a6ce-1c4ef4b6eecb.png)
+
 
 
 
