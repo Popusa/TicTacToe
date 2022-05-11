@@ -1,5 +1,6 @@
 ### Tic-Tac-Toe
-![TicTacToe Screenshot](https://user-images.githubusercontent.com/90353446/167964456-3d12bd8b-0048-483e-bbe4-bcfe51c76661.png)
+![TicTacToe better screenshot](https://user-images.githubusercontent.com/90353446/167965497-20e9de72-1228-4888-9a13-381090f890b6.png)
+
 
 
 The link for the live version: https://popusa.github.io/tic-tac-toe/
