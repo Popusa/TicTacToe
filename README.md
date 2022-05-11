@@ -10,7 +10,7 @@ The link for the live version: https://popusa.github.io/tic-tac-toe/
 <h3>Description</h3>
 This is the TicTacToe project that I am making as part of the The Odin Project Curriculum.
 
-The project is using HTML/CSS/Vanilla JS, as well as the Web Storage API that allows for some data storage on the user device.
+The project is made using HTML/CSS/Vanilla JS, as well as the Web Storage API that allows for some data storage on the user device.
 
 It is the second project in the design patterns section that will teach me how to write organized and clean code.
 Also, the main objective of the project is to learn how to use the factory pattern, which is going to be interesting!
@@ -19,8 +19,11 @@ There is a choice for playing against an unbeatable AI, that was implemented usi
 
 <h3> Features </h3>
 - Clean Code
+- 
 - Factory Pattern
+- 
 - Responsive web design
+- 
 
 The game has four modes: 
 
