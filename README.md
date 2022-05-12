@@ -18,12 +18,15 @@ In the project, you can choose between different AI gamemodes or a player versus
 There is a choice for playing against an unbeatable AI, that was implemented using the Minimax Algorithm. It cannot lose, only win or draw.
 
 <h3> Features </h3>
+
 - Clean Code
-- 
+
+
 - Factory Pattern
-- 
+
+
 - Responsive web design
-- 
+
 
 The game has four modes: 
 
