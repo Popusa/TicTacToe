@@ -39,13 +39,13 @@ The game has four modes:
 
 the CPU modes however, will be comprised of three difficulties:
 
-### Normal:
+<h4> Normal: </h4>
 a normal difficulty where a CPU will play random moves every turn.
 
-### Hard:
+<h4> Hard </h4>
 a hard difficulty where a CPU will attempt to win at every turn it plays after the first two moves. However, it has a glaring weakness which is that it cannot defend itself when it is about to lose and it is limited to random moves at the first two moves.
 
-### Unbeatable:
+<h4> Unbeatable: </h4>
 An unbeatable CPU made using the minimax algorithm that cannot lose no matter what and always knows the best (maximizing) position to play everytime. 
 
 <h3>Credits</h3>
